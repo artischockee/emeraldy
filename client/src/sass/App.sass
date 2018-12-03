@@ -1,0 +1,58 @@
+@import "helpers/variables"
+@import "helpers/functions"
+
+.section-wrapper
+    align-items: center
+    display: flex
+    width: em(964)
+    max-width: em(964)
+    margin: 0 auto
+
+table
+    font-size: .875rem
+    background-color: white
+    border: .5em solid #AAA
+    border-spacing: 0
+    border-collapse: collapse
+    box-shadow: 0 1em 2em rgba(0, 0, 0, .2)
+
+thead
+    tr
+        height: 2.5em
+
+    th
+        border: 1px solid #AAA
+        font-size: .9em
+        font-weight: normal
+        min-width: 160px
+
+        &.nowide
+            min-width: inherit
+
+tbody
+    tr
+        th[scope="row"]
+            span
+                display: block
+                min-width: 96px
+                font-weight: normal
+                font-size: .9em
+
+    th, td
+        border: 1px solid #AAA
+
+.cell-wrapper
+    align-items: center
+    display: flex
+    flex-direction: column
+    justify-content: center
+    min-height: 84px
+
+    p
+        font-size: .9em
+        margin: 0
+
+
+@import "components/header"
+@import "components/main"
+@import "components/footer"

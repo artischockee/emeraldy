@@ -1,0 +1,44 @@
+.header
+    .section-wrapper
+        align-items: stretch
+        padding: em(24) 0 em(8)
+
+    &__logo
+        background-color: $cl-primary
+
+        p
+            font-weight: 600
+            color: white
+            margin: 0
+            padding: em(12) em(4)
+            padding-left: em(48)
+
+    &__nav, &__login
+        align-items: center
+        display: flex
+
+    &__nav
+        flex: auto
+        margin: 0 em(48)
+
+.nav
+    &__ul
+        margin: 0
+        padding: 0
+
+    &__li
+        display: inline
+        list-style: none
+        margin-right: em(48)
+
+
+        &:last-child
+            margin-right: 0
+
+.li
+    &__link
+        color: #161616
+        text-decoration: none
+
+        &.active
+            font-weight: 700

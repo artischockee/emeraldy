@@ -1,0 +1,20 @@
+.main
+    
+
+.just
+    color: #323232
+    font-size: em(256)
+    font-weight: 900
+    margin: 0
+    position: relative
+
+    &::after
+        content: ''
+        position: absolute
+        bottom: em(3)
+        left: 0
+        line-height: 1
+        width: 100%
+        height: em(3)
+        background-color: $cl-primary
+        z-index: -1
