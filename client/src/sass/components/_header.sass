@@ -42,3 +42,23 @@
 
         &.active
             font-weight: 700
+
+.login-button
+    align-items: center
+    border: em(2) solid $cl-gray
+    box-sizing: border-box
+    border-radius: em(24)
+    color: $cl-gray-dark
+    font-size: em(13)
+    font-weight: 500
+    display: flex
+    height: 80%
+    padding: 0 em(28)
+    text-decoration: none
+    text-transform: uppercase
+    transition: all 200ms ease-out
+
+    &:hover, &.active
+        background-color: $cl-primary
+        border-color: $cl-primary
+        color: white

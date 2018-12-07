@@ -1,0 +1,65 @@
+.scholastic-post__form
+    .form
+        &__field
+            // align-items: center
+            display: flex
+            margin-bottom: em(4)
+
+            &:last-child
+                margin-top: em(12)
+                margin-bottom: 0
+
+            .left-side
+                align-items: center
+                display: flex
+                justify-content: flex-end
+                min-width: em(64)
+                margin-right: em(24)
+
+            .right-side
+                flex: auto
+
+                .input-area
+                    display: flex
+                    flex-direction: column
+                    background-color: lighten($cl-gray, 13%)
+                    height: em(40)
+
+                    > input
+                        flex: auto
+                        border: none
+                        outline: none
+                        padding: 0
+
+                    .underline
+                        width: 100%
+                        height: em(2)
+                        background-color: $cl-gray
+                        position: relative
+
+                        &::before
+                            position: absolute
+                            content: ''
+                            width: 0
+                            height: 100%
+                            background-color: $cl-primary
+                            transition: width 150ms ease-out
+
+                        &.active::before
+                            width: 100%
+
+            .input-label
+                color: #484848
+
+    button[type="submit"]
+        background-color: $cl-primary
+        border: none
+        border-radius: em(32)
+        color: white
+        cursor: pointer
+        font-size: em(16)
+        font-weight: 600
+        height: em(36)
+        max-width: em(150)
+        outline: none
+        width: 100%

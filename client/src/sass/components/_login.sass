@@ -1,0 +1,84 @@
+.login
+    background-color: #E5E7E9
+    display: flex
+    flex: auto
+    flex-direction: column
+    justify-content: center
+
+    &__container
+        background-color: white
+        border-radius: em(16)
+        overflow: hidden
+        width: 100%
+        margin: 0 em(96)
+
+    &__wallpaper
+        align-items: center
+        // background-position: center -256px
+        // background-size: cover
+        background-color: $cl-primary
+        display: flex
+        height: em(160)
+        justify-content: center
+
+    &__title
+        color: white
+        font-size: em(32)
+        font-weight: 800
+        margin: 0
+        text-transform: uppercase
+
+    &__form
+        padding: em(48) em(64)
+
+.login__form
+    .form
+        &__field
+            // align-items: center
+            display: flex
+            margin-bottom: em(16)
+
+            &:last-child
+                margin-bottom: 0
+
+            .left-side
+                align-items: center
+                display: flex
+                justify-content: flex-end
+                min-width: em(192)
+                margin-right: em(32)
+
+            .right-side
+                flex: auto
+
+                .input-area
+                    display: flex
+                    flex-direction: column
+                    background-color: lighten($cl-gray, 13%)
+                    height: em(40)
+
+                    > input
+                        flex: auto
+                        border: none
+                        outline: none
+                        padding: 0
+
+                    .underline
+                        width: 100%
+                        height: em(2)
+                        background-color: $cl-gray
+                        position: relative
+
+                        &::before
+                            position: absolute
+                            content: ''
+                            width: 0
+                            height: 100%
+                            background-color: $cl-primary
+                            transition: width 150ms ease-out
+
+                        &.active::before
+                            width: 100%
+
+            .input-label
+                color: #484848
