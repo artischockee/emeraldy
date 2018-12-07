@@ -24,7 +24,7 @@ const Header = () => (
         </ul>
       </nav>
       <div className="header__login">
-        <p style={{margin: 0}}>Log in</p>
+        <Link className="login-button" to="/login">Log in</Link>
       </div>
     </div>
   </header>
