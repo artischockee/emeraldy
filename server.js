@@ -1,36 +1,30 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const Database = require('./server/database');
-// const Repo = require('./server/repo');
+const Scholastic = require('./server/scholastic');
 
 const DB = new Database('./db.sqlite');
-// DB.serialize(function() {
-//   DB.run("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, login TEXT, email TEXT, password TEXT, firstName TEXT, lastName TEXT)");
-//
-//   DB.run("CREATE TABLE IF NOT EXISTS scholastic (id INTEGER PRIMARY KEY AUTOINCREMENT, date TEXT, hours INTEGER, minutes INTEGER)");
+const scholastic = new Scholastic(DB);
 
-  // DB.run("INSERT INTO users (login, email, password, firstName, lastName) VALUES
-  //   ($login, $email, $password, $firstName, $lastName)",
-  //   {
-  //     $login: 'artischocke',
-  //     $email: 'artyeug@gmail.com',
-  //     $password: 'password',
-  //     $firstName: 'Artem',
-  //     $lastName: 'Piskarev'
-  //   },
-  //   function (err) { console.log(this.lastId) }
-  // );
+//   DB.run(
+//     "CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, login TEXT, email TEXT, password TEXT, firstName TEXT, lastName TEXT)"
+//   )
 
-  // const stmt = DB.prepare("INSERT INTO users VALUES (null, ?, ?, ?, ?, ?)");
-  // stmt.run("artischocke", "email@a.a", "password", "Artem", "Piskarev");
-  // stmt.finalize();
+// DB.run("INSERT INTO users (login, email, password, firstName, lastName) VALUES
+//   ($login, $email, $password, $firstName, $lastName)",
+//   {
+//     $login: 'artischocke',
+//     $email: 'artyeug@gmail.com',
+//     $password: 'password',
+//     $firstName: 'Artem',
+//     $lastName: 'Piskarev'
+//   },
+//   function (err) { console.log(this.lastId) }
+// );
 
-  // DB.each("SELECT * FROM users", function(err, row) {
-  //     console.log(row);
-  // });
-// });
-
-// DB.close();
+// const stmt = DB.prepare("INSERT INTO users VALUES (null, ?, ?, ?, ?, ?)");
+// stmt.run("artischocke", "email@a.a", "password", "Artem", "Piskarev");
+// stmt.finalize();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -57,81 +51,60 @@ apiRouter.post('/login', (req, res) => {
     );
 })
 
-const insert = (body) => {
-  return new Promise((resolve, reject) => {
-    DB.run(
-      "INSERT INTO scholastic VALUES (null, $date, $hours, $minutes)",
-      {
-        $date: body.date,
-        $hours: body.hours,
-        $minutes: body.minutes,
-      },
-      function(err) {
-        if (err)
-          reject(err);
-        else
-          resolve("SD");
-      }
-    );
-  });
-};
-
-
-// For a large or undefined amount of rows use .each() instead on .all()
-const getRows = () => {
-  return new Promise((resolve, reject) => {
-    DB.all('SELECT * FROM scholastic', (err, rows) => {
-      if (err)
-        reject({ error: 'Error' });
-      else
-        resolve(rows)
-    });
-  });
-}
-
 apiRouter.get('/scholastic', (req, res) => {
-  getRows().then(
-    (data) => {
-      res.send(JSON.stringify(data));
-    },
-    (error) => {
-      throw new Error(error);
-    }
+  scholastic.selectAllRows().then(
+    (data) => res.send(JSON.stringify(data)),
+    (error) => res.status(400).send(JSON.stringify(error))
+  );
+});
+
+apiRouter.get('/scholastic/tableCreate', (req, res) => {
+  scholastic.createTable().then(
+    (data) => res.send(JSON.stringify(data)),
+    (error) => res.status(400).send(JSON.stringify(error))
+  );
+});
+
+apiRouter.get('/scholastic/tableDrop', (req, res) => {
+  scholastic.dropTable().then(
+    (data) => res.send(JSON.stringify(data)),
+    (error) => res.status(400).send(JSON.stringify(error))
   );
 });
 
 apiRouter.delete('/scholastic/:entryId', (req, res) => {
-  const { entryId } = req.params;
-
-  console.log(entryId);
-
-  res.status(204).send();
+  scholastic.deleteData(req.params.entryId).then(
+    (data) => res.status(204).send(),
+    (error) => res.status(404).send()
+  );
 });
+
+apiRouter.put('/scholastic/:entryId', (req, res) => {
+  const { body } = req;
+
+  if (!Object.keys(body).length) {
+    res.status(400).send(JSON.stringify({ error: 'Sent data object was empty' }));
+    return;
+  }
+
+  scholastic.updateData(req.params.entryId, body).then(
+    (data) => res.send(JSON.stringify(data)),
+    (error) => res.status(400).send(JSON.stringify(error))
+  );
+})
 
 apiRouter.post('/scholastic', (req, res) => {
   const { body } = req;
 
   if (!Object.keys(body).length) {
-    res.status(400).send(JSON.stringify({ shit: 'head' }));
+    res.status(400).send(JSON.stringify({ error: 'Sent data object was empty' }));
     return;
   }
 
-  insert(body).then(
-    (success) => {
-      res.status(201).send(JSON.stringify({ success: true }));
-    },
-    (failure) => {
-      throw new Error(failure);
-    }
+  scholastic.insertData(body).then(
+    (data) => res.status(201).send(JSON.stringify(data)),
+    (error) => res.status(400).send(JSON.stringify(error))
   );
-});
-
-apiRouter.post('/world', (req, res) => {
-  console.log(req.body);
-
-  DB.all('SELECT * FROM users', (err, rows) => row(rows));
-
-  res.send(JSON.stringify({msg: 'blablabla', post: `${req.body.post}`}));
 });
 
 /*
