@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
 import { reducer as formReducer } from 'redux-form';
-import value from './value';
+import scholasticEditEntry from './scholasticEditEntry';
 
 export default combineReducers({
-  value,
+  scholasticEditEntry,
   form: formReducer
 });
