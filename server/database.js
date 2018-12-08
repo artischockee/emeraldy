@@ -10,6 +10,32 @@ class Database {
     });
   }
 
+  all(sql, params = []) {
+    return new Promise((resolve, reject) => {
+      this.db.all(sql, params, function(error, rows) {
+        if (error) {
+          console.log('Error running sql ' + sql);
+          console.log(error);
+          reject(error);
+        } else
+          resolve(rows);
+      });
+    });
+  }
+
+  each(sql, params = [], complete = null) {
+    return new Promise((resolve, reject) => {
+      this.db.each(sql, params, function(error, row) {
+        if (error) {
+          console.log('Error running sql ' + sql);
+          console.log(error);
+          reject(error);
+        } else
+          resolve(row);
+      }, complete);
+    });
+  }
+
   get(sql, params = []) {
     return new Promise((resolve, reject) => {
       this.db.get(sql, params, function(error, row) {
@@ -34,6 +60,10 @@ class Database {
           resolve({ id: this.lastID });
       });
     });
+  }
+
+  serialize(promiseChain) {
+    Promise.all(promiseChain);
   }
 }
 
