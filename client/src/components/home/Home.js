@@ -1,10 +1,13 @@
 import React from 'react';
-import Scholastic from './scholastic/Scholastic';
+import Link from '../generic/Link';
 
 const Home = () => (
   <React.Fragment>
-    <p className="just small">Home</p>
-    <Scholastic />
+    <div className="home__link-container">
+      <Link className="link" to="/scholastic">
+          <div className="link__image" style={{ backgroundImage: "url(images/scholastic.png)" }} />
+      </Link>
+    </div>
   </React.Fragment>
 );
 
