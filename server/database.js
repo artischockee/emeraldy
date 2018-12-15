@@ -1,4 +1,5 @@
 const sqlite3 = require('sqlite3');
+const path = require('path');
 
 class Database {
   constructor(dbFilePath) {
@@ -67,4 +68,7 @@ class Database {
   }
 }
 
-module.exports = Database;
+const database = new Database(path.resolve(__dirname, 'db.sqlite'));
+
+// module.exports = Database;
+module.exports = database;
