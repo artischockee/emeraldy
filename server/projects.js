@@ -1,3 +1,5 @@
+const database = require('./database');
+
 class Projects {
   constructor(db) {
     this.db = db;
@@ -62,4 +64,4 @@ class Projects {
   }
 }
 
-module.exports = Projects;
+module.exports = new Projects(database);
