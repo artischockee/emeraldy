@@ -2,8 +2,15 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import { unloadData } from '../../../../actions';
+import { fetchData } from '../../../../actions/projects';
+import { findProjectById, filterProjectsById } from '../../../../reducers/projects';
 
 class ModifiableRow extends React.Component {
+  componentDidMount() {
+    if (!this.props.projects.length)
+      this.props.fetchProjects();
+  }
+
   handleSave = () => {
     this.props.handleSubmit();
     this.props.onEditCancel();
@@ -15,9 +22,30 @@ class ModifiableRow extends React.Component {
   };
 
   render() {
+    const { projects, project } = this.props;
+
+    if (!project) return null
+
     return (
       <tr>
-        <td>{this.props.id}</td>
+        <td>
+          <Field
+            name="projectId"
+            component="select"
+          >
+            <option value={project.id}>
+              {project.name}
+            </option>
+            {projects.map(project => (
+              <option
+                key={project.id}
+                value={project.id}
+              >
+                {project.name}
+              </option>
+            ))}
+          </Field>
+        </td>
         <td>
           <Field
             name="date"
@@ -53,11 +81,14 @@ class ModifiableRow extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  initialValues: state.scholasticEditEntry
+  initialValues: state.scholasticEditEntry,
+  projects: filterProjectsById(state.scholasticEditEntry.projectId, state),
+  project: findProjectById(state.scholasticEditEntry.projectId, state)
 });
 
 const mapDispatchToProps = {
-  unloadData
+  unloadData,
+  fetchProjects: () => fetchData()
 };
 
 export default connect(
