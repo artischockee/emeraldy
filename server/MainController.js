@@ -1,13 +1,14 @@
-const Scholastic = require('./scholastic');
-const Projects = require('./projects');
+const scholastic = require('./scholastic');
+const projects = require('./projects');
+const database = require('./database');
 
-const Database = require('./database');
+console.log('fuck off from MainController');
 
 class MainController {
   constructor(db) {
     this.db = db;
-    this._scholastic = new Scholastic(db);
-    this._projects = new Projects(db);
+    this._scholastic = scholastic;
+    this._projects = projects;
   }
 
   get scholastic() {
@@ -23,14 +24,26 @@ class MainController {
   set projects(prj) {}
 
   selectScholasticTable() {
-    const { _scholastic, _projects, db } = this;
+    const { _scholastic: s, _projects: p, db } = this;
 
-    const sql = `SELECT ${_scholastic.tableName}.rowid, ${_projects.tableName}.name AS projectName, ${Object.keys(_scholastic.columns)} FROM ${_scholastic.tableName} JOIN ${_projects.tableName} ON ${_projects.tableName}.rowid = ${_scholastic.tableName}.projectId`;
+    const sch = s.tableName;
+    const prj = p.tableName;
+
+    const sql = `SELECT ${sch}.rowid, ${prj}.name AS projectName, ${Object.keys(s.columns)} FROM ${sch} JOIN ${prj} ON ${prj}.rowid = ${sch}.projectId`;
+
+    return db.all(sql);
+  }
+
+  getProjectsCount() {
+    const { _scholastic: s, _projects: p, db } = this;
+
+    const sch = s.tableName;
+    const prj = p.tableName;
+
+    const sql = `SELECT ${prj}.name AS projectName, count(${sch}.projectId) AS count FROM ${prj} LEFT JOIN ${sch} ON ${prj}.rowid = ${sch}.projectId GROUP BY ${prj}.rowid`;
 
     return db.all(sql);
   }
 }
 
-const mainController = new MainController(Database);
-
-module.exports = mainController;
+module.exports = new MainController(database);

@@ -1,3 +1,5 @@
+const database = require('./database');
+
 class Scholastic {
   constructor(db) {
     this.db = db;
@@ -5,7 +7,8 @@ class Scholastic {
     this.columns = {
       date: 'TEXT PRIMARY KEY',
       hours: 'INTEGER',
-      minutes: 'INTEGER'
+      minutes: 'INTEGER',
+      projectId: 'INTEGER'
     };
   }
 
@@ -31,13 +34,20 @@ class Scholastic {
     return db.all(sql);
   }
 
+  getRowsCount() {
+    const { columns, db, tableName } = this;
+    const sql = `SELECT count(*) AS count FROM ${tableName}`;
+
+    return db.get(sql);
+  }
+
   insertData(data) {
     const { columns, db, tableName } = this;
-    const { date, hours, minutes } = data;
+    const { date, hours, minutes, project } = data;
     const colNames = Object.keys(columns).map(key => '(?)').toString();
     const sql = `INSERT INTO ${tableName} VALUES (${colNames})`;
 
-    return db.run(sql, [ date, hours, minutes ]);
+    return db.run(sql, [ date, hours, minutes, project ]);
   }
 
   deleteData(id) {
@@ -49,12 +59,12 @@ class Scholastic {
 
   updateData(id, data) {
     const { columns, db, tableName } = this;
-    const { date, hours, minutes } = data;
+    const { date, hours, minutes, projectId } = data;
     const colNames = Object.keys(columns).map(key => `${key} = (?)`).toString();
     const sql = `UPDATE ${tableName} SET ${colNames} WHERE rowid = (?)`;
 
-    return db.run(sql, [ date, hours, minutes, id ]);
+    return db.run(sql, [ date, hours, minutes, projectId, id ]);
   }
 }
 
-module.exports = Scholastic;
+module.exports = new Scholastic(database);
