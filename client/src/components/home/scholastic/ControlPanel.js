@@ -10,7 +10,8 @@ class ControlPanel extends React.Component {
           <CreateForm onSubmit={this.props.onEntryCreate} />
         </Dropdown>
         <button className="control button" onClick={this.props.onTableCreate}>Create table</button>
-        <button className="control button" onClick={this.props.onTableDrop}>Drop table</button>
+        <button className="control button danger" onClick={this.props.onTableDrop}>Drop table</button>
+        <button className="control button f-right" onClick={this.props.onRefreshData}>Refresh</button>
       </section>
     )
   }
