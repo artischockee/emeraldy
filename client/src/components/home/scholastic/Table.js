@@ -6,18 +6,33 @@ const Table = ({ data, onEntryDelete, onEntryEdit }) => (
   <table className="scholastic-table">
     <thead>
       <tr>
-        <th>id</th>
-        <th>date</th>
-        <th>hours</th>
-        <th>minutes</th>
-        <th>actions</th>
+        <th>Project</th>
+        <th>Date</th>
+        <th>Hours</th>
+        <th>Minutes</th>
+        <th>Actions</th>
       </tr>
     </thead>
     <tbody>
-      {data && data.map(entry => (
-        <Row key={entry.id} entry={entry} onDelete={onEntryDelete} onEdit={onEntryEdit} />
+      {data && data.length && data.map(entry => (
+        <Row key={entry.rowid} entry={entry} onDelete={onEntryDelete} onEdit={onEntryEdit} />
       ))}
+      <tr>
+        <td colSpan="5">
+          <button
+            className="scholastic-table__button scholastic-table__button--add-new"
+          >
+            Add new..
+          </button>
+        </td>
+      </tr>
     </tbody>
+    <tfoot>
+      <tr>
+        <th colSpan="4"></th>
+        <td><button className="scholastic-table__button" disabled>Delete all</button></td>
+      </tr>
+    </tfoot>
   </table>
 );
 
@@ -31,7 +46,7 @@ class Row extends React.Component {
   };
 
   modify = (data) => {
-    this.props.onEdit(this.props.entry.id, data);
+    this.props.onEdit(this.props.entry.rowid, data);
   }
 
   render() {
@@ -41,13 +56,14 @@ class Row extends React.Component {
       ? (
         <ModifiableRow
           onSubmit={this.modify}
-          id={entry.id}
           onEditCancel={() => this.setModify(false)}
         />
       )
       : (
         <UnmodifiableRow
-          id={entry.id}
+          id={entry.rowid}
+          projectName={entry.projectName}
+          projectId={entry.projectId}
           date={entry.date}
           hours={entry.hours}
           minutes={entry.minutes}
