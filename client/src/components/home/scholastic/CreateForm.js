@@ -1,37 +1,97 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import classnames from 'classnames';
+import { fetchData as fetchProjectsData } from '../../../actions/projects';
+import {
+  scholasticPostSyncValidator as syncValidator,
+  scholasticPostInitialValues as initialValues
+} from '../../../auxiliary/redux-forms';
+import Spinner from '../../generic/Spinner';
 
-const CreateForm = ({ handleSubmit }) => (
-  <form className="scholastic-post__form" onSubmit={handleSubmit}>
-    <Field
-      name="date"
-      type="date"
-      component={renderField}
-      label="Date"
-    />
-    <Field
-      name="hours"
-      type="number"
-      min="0"
-      max="24"
-      component={renderField}
-      label="Hours"
-    />
-    <Field
-      name="minutes"
-      type="number"
-      min="0"
-      max="59"
-      component={renderField}
-      label="Minutes"
-    />
-    <div className="form__field">
-      <div className="left-side" />
-      <button type="submit">Submit</button>
-    </div>
-  </form>
-);
+// const customSelect = props => {
+//   console.log(props);
+//
+//   return (
+//     <div className="select">
+//       <select {...props.input} hidden>
+//         {props.children}
+//       </select>
+//       <div className="select-styled">
+//         {/* sss */}
+//       </div>
+//       <ul className="select-options">
+//         {React.Children.map(props.children, (child, key) => {
+//           console.log('child', child);
+//           return (
+//             <li>{child.props.children}</li>
+//           )
+//         })}
+//       </ul>
+//     </div>
+//   );
+// }
+
+class CreateForm extends React.Component {
+  componentDidMount() {
+    if (!this.props.projects.length)
+      this.props.fetchProjectsData();
+  }
+
+  render() {
+    const { handleSubmit, projects, error } = this.props;
+
+    if (!projects.length)
+      return <Spinner />;
+
+    return (
+      <form className="scholastic-post__form" onSubmit={handleSubmit}>
+        <Field
+          name="project"
+          component="select"
+        >
+          <option disabled value="">
+            Choose the project..
+          </option>
+          {projects.map(project => (
+            <option key={project.id} value={project.id}>{project.name}</option>
+          ))}
+        </Field>
+        <Field
+          name="date"
+          type="date"
+          component={renderField}
+          label="Date"
+        />
+        <Field
+          name="hours"
+          type="number"
+          min="0"
+          max="24"
+          component={renderField}
+          label="Hours"
+        />
+        <Field
+          name="minutes"
+          type="number"
+          min="0"
+          max="59"
+          component={renderField}
+          label="Minutes"
+        />
+        {error &&
+          <div className="form__field">
+            <strong className="form__submit-error">{error}</strong>
+          </div>
+        }
+        <div className="form__field">
+          <div className="left-side" />
+          <button type="submit">Create</button>
+        </div>
+      </form>
+    )
+  }
+}
 
 const renderField = ({
   input,
@@ -43,34 +103,37 @@ const renderField = ({
 }) => (
   <div className="form__field">
     <div className="left-side">
-      <label className="input-label" htmlFor={input.name}>{label}</label>
+      <label
+        className={classnames("input-label", { error: touched && error })}
+        htmlFor={input.name}
+      >
+        {label}
+      </label>
     </div>
     <div className="right-side">
       <div className="input-area">
         <input {...input} id={input.name} placeholder={label} type={type} min={min} max={max} />
-        <div className={classnames("underline", { active })} />
+        <div className={classnames("underline", { active, error: touched && error })} />
       </div>
-      {/* {touched &&
-        (error && <span>{error}</span>)} */}
     </div>
   </div>
 );
 
-const validate = values => {
-  const errors = {}
+const mapStateToProps = (state) => ({
+  initialValues,
+  projects: state.projects
+});
 
-  if (!values.date)
-    errors.date = 'Required';
-
-  if (!values.hours)
-    errors.hours = 'Required';
-
-  if (!values.minutes)
-    errors.minutes = 'Required';
-
-  // console.log(values);
-
-  return errors
+const mapDispatchToProps = {
+  fetchProjectsData
 };
 
-export default reduxForm({ form: 'scholasticPost', validate })(CreateForm);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(
+  reduxForm({
+    form: 'scholasticPost',
+    validate: syncValidator
+  })(CreateForm)
+);
