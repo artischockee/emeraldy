@@ -1,3 +1,28 @@
+.home
+    &__link-container
+        display: grid
+        grid-template-columns: repeat(3, 1fr)
+        grid-auto-rows: minmax(em(150), auto)
+        margin: em(48) 0
+        width: 100%
+
+        .link
+            display: flex
+            border: em(2) dashed transparent
+            justify-content: center
+            padding: em(16)
+            position: relative
+            transition: border-color 250ms ease-out
+
+            &:hover
+                border-color: $cl-gray
+
+            &__image
+                width: 100%
+                background-position: center
+                background-repeat: no-repeat
+                background-size: contain
+
 .scholastic-post__form
     .form
         &__field
@@ -63,6 +88,3 @@
         max-width: em(150)
         outline: none
         width: 100%
-
-.scholastic-table tbody tr:nth-child(even)
-    background-color: darken(white, 8%)

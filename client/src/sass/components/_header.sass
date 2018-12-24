@@ -23,25 +23,37 @@
 
 .nav
     &__ul
+        height: 100%
         margin: 0
         padding: 0
 
     &__li
-        display: inline
+        align-items: center
+        display: inline-flex
+        height: 100%
         list-style: none
         margin-right: em(48)
-
+        position: relative
 
         &:last-child
             margin-right: 0
 
 .li
     &__link
-        color: #161616
+        color: $cl-black-soft
         text-decoration: none
 
-        &.active
-            font-weight: 700
+        &::before
+            content: ''
+            background-color: $cl-primary
+            bottom: 0
+            height: em(2)
+            position: absolute
+            transition: width 250ms ease-out
+            width: 0
+
+        &.active::before
+            width: 100%
 
 .login-button
     align-items: center

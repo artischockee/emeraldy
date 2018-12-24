@@ -8,49 +8,36 @@
     max-width: em(964)
     margin: 0 auto
 
-table
-    font-size: .875rem
-    background-color: white
-    border: .5em solid #AAA
-    border-spacing: 0
-    border-collapse: collapse
-    box-shadow: 0 1em 2em rgba(0, 0, 0, .2)
+.spinner-wrapper
+    display: flex
+    justify-content: center
+    margin: em(48) 0
+    width: 100%
 
-thead
-    tr
-        height: 2.5em
-
-    th
-        border: 1px solid #AAA
-        font-size: .9em
-        font-weight: normal
-        min-width: 160px
-
-        &.nowide
-            min-width: inherit
-
-tbody
-    tr
-        th[scope="row"]
-            span
-                display: block
-                min-width: 96px
-                font-weight: normal
-                font-size: .9em
-
-    th, td
-        border: 1px solid #AAA
-
-.cell-wrapper
+.spinner
     align-items: center
     display: flex
-    flex-direction: column
     justify-content: center
-    min-height: 84px
+    height: em(64)
+    width: em(64)
 
-    p
-        font-size: .9em
-        margin: 0
+    &::after
+        content: ''
+        display: block
+        width: em(40)
+        height: em(40)
+        border-radius: 50%
+        border: em(4) solid $cl-black-soft
+        border-color: $cl-black-soft transparent $cl-black-soft transparent
+        animation: spinnerRotate 1.2s linear infinite
+
+@keyframes spinnerRotate
+  0%
+    transform: rotate(0deg)
+
+  100%
+    transform: rotate(360deg)
+
 
 
 @import "components/login"
@@ -58,3 +45,4 @@ tbody
 @import "components/main"
 @import "components/home"
 @import "components/footer"
+@import "page/scholastic"
