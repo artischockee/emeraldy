@@ -1,16 +1,22 @@
 import React from 'react';
-import CreateForm from './CreateForm';
 import Table from './Table';
+import ControlPanel from './ControlPanel';
+import Spinner from '../../generic/Spinner';
 
 const apiScholastic = '/api/scholastic';
 
 class Scholastic extends React.Component {
   state = {
-    data: null
+    data: null,
+    loaded: false
   };
 
   componentDidMount() {
     this.fetchData();
+
+    setTimeout(() => {
+      this.setState({ loaded: true })
+    }, 750);
   }
 
   fetchData = () => {
@@ -36,7 +42,7 @@ class Scholastic extends React.Component {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(Object.assign({}, data, { id }))
+      body: JSON.stringify(data)
     };
 
     fetch(`${apiScholastic}/${id}`, init)
@@ -45,7 +51,7 @@ class Scholastic extends React.Component {
   };
 
   createEntry = (data) => {
-    // data: { date: "", hours: "", minutes: "" }
+    // data: { date, hours, minutes, project (id) }
 
     const init = {
       method: 'POST',
@@ -77,11 +83,19 @@ class Scholastic extends React.Component {
   }
 
   render() {
+    const { loaded } = this.state;
+
+    if (!loaded)
+      return <div className="spinner-wrapper"><Spinner /></div>;
+
     return (
       <React.Fragment>
-        <CreateForm onSubmit={this.createEntry} />
-        <button onClick={this.createTable}>Create table</button>
-        <button onClick={this.dropTable}>Drop table</button>
+        <ControlPanel
+          onEntryCreate={this.createEntry}
+          onTableCreate={this.createTable}
+          onTableDrop={this.dropTable}
+          onRefreshData={this.fetchData}
+        />
         <Table
           data={this.state.data}
           onEntryDelete={this.deleteEntry}
