@@ -68,7 +68,4 @@ class Database {
   }
 }
 
-const database = new Database(path.resolve(__dirname, 'db.sqlite'));
-
-// module.exports = Database;
-module.exports = database;
+module.exports = new Database(path.resolve(__dirname, 'db.sqlite'));
