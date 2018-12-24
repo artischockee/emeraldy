@@ -3,25 +3,27 @@ import './sass/App.sass';
 import Header from './components/Header';
 import Main from './components/Main';
 import Footer from './components/Footer';
+import ModalDialogSystem from './components/ModalDialogSystem';
 
-import { Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Login from './components/login/Login';
 
 class App extends React.Component {
   render() {
     return (
-      <React.Fragment>
+      <Router>
         <Switch>
           <Route path="/login" component={Login} />
           <Route path="/" component={Body} />
         </Switch>
-      </React.Fragment>
+      </Router>
     );
   }
 }
 
 const Body = () => (
   <React.Fragment>
+    <ModalDialogSystem />
     <Header />
     <Main />
     <Footer />
