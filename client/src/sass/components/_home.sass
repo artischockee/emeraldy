@@ -70,11 +70,23 @@
                             background-color: $cl-primary
                             transition: width 150ms ease-out
 
-                        &.active::before
+                        &.active::before, &.error::before
                             width: 100%
+
+                        &.error::before
+                            background-color: $cl-danger
 
             .input-label
                 color: #484848
+                transition: color 150ms ease-out
+
+                &.error
+                    color: $cl-danger
+
+        &__submit-error
+            color: $cl-black-soft
+            font-size: em(15)
+            text-align: center
 
     button[type="submit"]
         background-color: $cl-primary
