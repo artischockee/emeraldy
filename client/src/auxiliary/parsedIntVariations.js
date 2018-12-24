@@ -1,0 +1,1 @@
+export const parsedDecimal = (valueToParse) => parseInt(valueToParse, 10);

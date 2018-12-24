@@ -1,0 +1,1 @@
+export const ISODate = () => new Date().toISOString().substring(0, 10);
