@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const errorhandler = require('errorhandler');
-const apiRouter = require('./routers/apiRouter');
+const apiRouter = require('./routes/api');
 
 function initialize() {
   const app = express();
