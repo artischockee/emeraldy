@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import classnames from 'classnames';
 import { timeout } from '../auxiliary';
 import { closeDialog } from '../actions';
+import Button from './generic/Button';
 
 class ModalDialogSystem extends React.Component {
   render() {
@@ -11,7 +12,13 @@ class ModalDialogSystem extends React.Component {
 
     switch (this.props.dialog.name) {
       case 'Delete Dialog':
-        return <DeleteDialog id={this.props.dialog.itemId} onClose={this.props.closeDialog} />
+        return (
+          <DeleteDialog
+            id={this.props.dialog.itemId}
+            onConfirm={this.props.dialog.callback}
+            onClose={this.props.closeDialog}
+          />
+        )
       default:
         return null;
     }
@@ -32,10 +39,17 @@ class DeleteDialog extends React.Component {
 
   async componentDidMount() {
     await timeout();
-    this.setState({ isLoading: false });
+    await this.setState({ isLoading: false });
 
     document.addEventListener('click', this.handleClick);
   }
+
+  handleConfirm = async () => {
+    this.props.onConfirm();
+    await this.setState({ isLoading: true });
+    await timeout(300);
+    this.props.onClose();
+  };
 
   handleUnmount = async () => {
     await this.setState({ isLoading: true });
@@ -54,9 +68,24 @@ class DeleteDialog extends React.Component {
     return (
       <div className={classnames("dialog-fullscreen-blind", { isLoading })} ref={this.blindRef}>
         <div className={classnames("dialog", { isLoading })}>
-          <p>Are u sure you want to delete object id {this.props.id}?</p>
-          <button>yes</button>
-          <button onClick={this.handleUnmount}>no</button>
+          <h4 className="dialog__header">Confirm an action</h4>
+          <section className="dialog__body">
+            <p className="dialog__message">
+              Are u sure you want to delete object id {this.props.id}?
+            </p>
+          </section>
+          <section className="dialog__buttons">
+            <Button
+              className="dialog__button dialog__button--confirm"
+              onClick={this.handleConfirm}
+              content="Yes"
+            />
+            <Button
+              className="dialog__button"
+              onClick={this.handleUnmount}
+              content="No"
+            />
+          </section>
         </div>
       </div>
     );
