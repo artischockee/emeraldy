@@ -17,9 +17,16 @@ class Scholastic extends Base {
     const sch = tableName;
     const prj = tableNames.projects;
 
-    const sql = `SELECT ${sch}.rowid, ${prj}.name AS projectName, ${Object.keys(columns)} FROM ${sch} JOIN ${prj} ON ${prj}.rowid = ${sch}.projectId`;
+    const sql = `SELECT ${sch}.rowid, ${prj}.name AS projectName, ${Object.keys(columns)} FROM ${sch} JOIN ${prj} ON ${prj}.rowid = ${sch}.projectId ORDER BY date`;
 
     return db.all(sql);
+  }
+
+  getTotalTime() {
+    const { columns, tableName, db } = this;
+    const sql = `SELECT SUM(hours) AS hours, SUM(minutes) AS minutes FROM ${tableName}`;
+
+    return db.get(sql);
   }
 
   insertData(data) {
