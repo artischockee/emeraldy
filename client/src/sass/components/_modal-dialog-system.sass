@@ -16,10 +16,14 @@
 
 .dialog
     width: em(512)
-    height: em(256)
+    min-height: em(256)
+    max-height: 100vh
     display: flex
-    align-items: center
-    justify-content: center
+    flex-direction: column
+    border-radius: em(4)
+    overflow: hidden
+    align-items: stretch
+    justify-content: space-between
     background-color: white
     transform: scale(1)
     opacity: 1
@@ -30,3 +34,55 @@
     &.isLoading
         transform: scale(.25)
         opacity: 0
+
+.dialog__header
+    background-color: $cl-primary
+    color: $cl-black-soft
+    margin: 0
+    padding: em(16)
+
+.dialog__body
+    flex: auto
+    margin: em(12) 0
+    padding: 0 em(16)
+
+.dialog__message
+
+
+.dialog__buttons
+    display: flex
+    justify-content: flex-end
+    padding: em(16)
+    border-top: em(1) solid $cl-gray
+
+.dialog__button
+    font-size: em(16)
+    font-weight: 500
+    background-color: white
+    outline: none
+    border: none
+    color: $cl-black-soft
+    border: em(1) solid $cl-gray
+    line-height: 1
+    border-radius: em(4)
+    cursor: pointer
+    transition-property: border-color, background-color
+    transition-duration: 200ms
+    transition-timing-function: ease-out
+    padding: em(8) em(24)
+
+    &:hover
+        background-color: darken(white, 6%)
+        border-color: darken($cl-gray, 4%)
+
+    &:not(:last-child)
+        margin-right: em(12)
+
+    &--confirm
+        font-weight: 600
+        background-color: $cl-primary
+        border-color: $cl-primary
+
+        &:hover
+            background-color: darken($cl-primary, 3%)
+            border-color: darken($cl-primary, 3%)
