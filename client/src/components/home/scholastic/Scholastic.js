@@ -51,7 +51,7 @@ class Scholastic extends React.Component {
   };
 
   createEntry = (data) => {
-    // data: { date, hours, minutes, project (id) }
+    // data: { date, project (id), time }
 
     const init = {
       method: 'POST',
@@ -94,6 +94,7 @@ class Scholastic extends React.Component {
           onEntryCreate={this.createEntry}
           onTableCreate={this.createTable}
           onTableDrop={this.dropTable}
+          onProjectCreate={this.createProject}
           onRefreshData={this.fetchData}
         />
         <Table

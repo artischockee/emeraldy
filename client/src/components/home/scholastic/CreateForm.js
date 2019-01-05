@@ -64,20 +64,11 @@ class CreateForm extends React.Component {
           label="Date"
         />
         <Field
-          name="hours"
-          type="number"
-          min="0"
-          max="24"
+          name="time"
+          type="text"
           component={renderField}
-          label="Hours"
-        />
-        <Field
-          name="minutes"
-          type="number"
-          min="0"
-          max="59"
-          component={renderField}
-          label="Minutes"
+          label="Time"
+          placeholder="e.g. 7h 25m"
         />
         {error &&
           <div className="form__field">
@@ -95,10 +86,9 @@ class CreateForm extends React.Component {
 
 const renderField = ({
   input,
+  placeholder,
   label,
   type,
-  min,
-  max,
   meta: { active, touched, error }
 }) => (
   <div className="form__field">
@@ -112,7 +102,12 @@ const renderField = ({
     </div>
     <div className="right-side">
       <div className="input-area">
-        <input {...input} id={input.name} placeholder={label} type={type} min={min} max={max} />
+        <input
+          {...input}
+          id={input.name}
+          placeholder={placeholder ? placeholder : label}
+          type={type}
+        />
         <div className={classnames("underline", { active, error: touched && error })} />
       </div>
     </div>
