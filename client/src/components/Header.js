@@ -21,6 +21,9 @@ const Header = () => (
           <li className="nav__li">
             <Link className="li__link" to="/crud-test">CRUD</Link>
           </li>
+          <li className="nav__li">
+            <Link className="li__link" to="/crud-tessst">bad link</Link>
+          </li>
         </ul>
       </nav>
       <div className="header__login">
