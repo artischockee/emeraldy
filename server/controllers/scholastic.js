@@ -1,11 +1,34 @@
 const Scholastic = require('../models/scholastic');
 const ScholasticEntry = require('../models/scholasticEntry');
 
-exports.get = (req, res) => {
+// exports.middleware = (req,res,next) => {
+//   console.log('I am Groot');
+//   next();
+// };
+
+// GET '/':
+
+exports.getTableData = (req, res, next) => {
+  req.data = {};
+
   Scholastic.getTableData().then(
-    (data) => res.send(JSON.stringify(data))
+    (data) => {
+      req.data.entries = data;
+      next();
+    }
   );
 };
+
+exports.getTotalTime = (req, res) => {
+  Scholastic.getTotalTime().then(
+    (data) => {
+      req.data.totalTime = data;
+      return res.send(JSON.stringify(req.data));
+    }
+  );
+};
+
+// // // // //
 
 exports.createEntry = (req, res) => {
   const { body: data } = req;
@@ -17,7 +40,9 @@ exports.createEntry = (req, res) => {
   }
 
   try {
-    new ScholasticEntry(data)
+    const processedData = ScholasticEntry.processData(data);
+
+    new ScholasticEntry(processedData)
       .save()
       .then(id => res.status(201).send(JSON.stringify(id)));
   } catch (error) {
