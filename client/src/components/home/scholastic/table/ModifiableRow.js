@@ -1,6 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
+import {
+  scholasticPostInitialValues as initialValues
+} from '../../../../auxiliary/redux-forms';
 import { unloadData } from '../../../../actions';
 import { fetchData } from '../../../../actions/projects';
 import { findProjectById, filterProjectsById } from '../../../../reducers/projects';
@@ -22,29 +25,44 @@ class ModifiableRow extends React.Component {
   };
 
   render() {
-    const { projects, project } = this.props;
-
-    if (!project) return null
+    const { project, projects } = this.props;
 
     return (
       <tr>
         <td>
-          <Field
-            name="projectId"
-            component="select"
-          >
-            <option value={project.id}>
-              {project.name}
-            </option>
-            {projects.map(project => (
-              <option
-                key={project.id}
-                value={project.id}
+          {project
+            ? (
+              <Field
+                name="projectId"
+                component="select"
               >
-                {project.name}
-              </option>
-            ))}
-          </Field>
+                <option value={project.id}>
+                  {project.name}
+                </option>
+                {projects.map(project => (
+                  <option
+                    key={project.id}
+                    value={project.id}
+                  >
+                    {project.name}
+                  </option>
+                ))}
+              </Field>
+            )
+            : (
+              <Field
+                name="projectId"
+                component="select"
+              >
+                <option disabled value="">
+                  Choose the project..
+                </option>
+                {projects.map(project => (
+                  <option key={project.id} value={project.id}>{project.name}</option>
+                ))}
+              </Field>
+            )
+          }
         </td>
         <td>
           <Field
@@ -53,21 +71,10 @@ class ModifiableRow extends React.Component {
             component="input"
           />
         </td>
-        <td>
+        <td colSpan="2">
           <Field
-            name="hours"
-            type="number"
-            min="0"
-            max="24"
-            component="input"
-          />
-        </td>
-        <td>
-          <Field
-            name="minutes"
-            type="number"
-            min="0"
-            max="59"
+            name="time"
+            type="text"
             component="input"
           />
         </td>
@@ -80,8 +87,14 @@ class ModifiableRow extends React.Component {
   }
 }
 
+const getInitialValues = (editEntry) => {
+  return (Object.entries(editEntry).length)
+    ? editEntry
+    : initialValues;
+};
+
 const mapStateToProps = (state) => ({
-  initialValues: state.scholasticEditEntry,
+  initialValues: getInitialValues(state.scholasticEditEntry),
   projects: filterProjectsById(state.scholasticEditEntry.projectId, state),
   project: findProjectById(state.scholasticEditEntry.projectId, state)
 });
