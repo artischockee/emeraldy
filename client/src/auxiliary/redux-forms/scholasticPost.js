@@ -2,8 +2,8 @@ import { SubmissionError } from 'redux-form';
 import { parsedDecimal, ISODate } from '../';
 
 const validator = (values) => {
-  const { project, date, hours, minutes } = values;
-  const validObject = { project, date, hours, minutes };
+  const { project, date, time } = values;
+  const validObject = { project, date, time };
 
   const errors = {};
 
@@ -17,9 +17,7 @@ const validator = (values) => {
 
 
 const initialValues = {
-  date: ISODate(),
-  hours: 0,
-  minutes: 0
+  date: ISODate()
 };
 
 export {
