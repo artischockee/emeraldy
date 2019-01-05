@@ -1,8 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { loadData, invokeDeleteDialog } from '../../../../actions';
+// import { timeout } from '../../../../auxiliary';
 import SVGTrashBin from '../../../svg/TrashBin';
 import SVGEdit from '../../../svg/Edit';
+import Button from '../../../generic/Button';
 
 class UnmodifiableRow extends React.Component {
   handleEdit = () => {
@@ -22,20 +24,19 @@ class UnmodifiableRow extends React.Component {
         <td>{hours}</td>
         <td>{minutes}</td>
         <td className="scholastic-table__cell scholastic-table__cell--actions">
-          <button
+          <Button
             className="scholastic-table__button"
             onClick={this.handleEdit}
           >
             <SVGEdit className="button__svg button__svg--edit" />
             Edit
-          </button>
-          <button
+          </Button>
+          <Button
             className="scholastic-table__button scholastic-table__button--delete"
             onClick={() => invokeDeleteDialog(id, () => onDelete(id))}
-            // onClick={() => onDelete(id)}
-            >
-              <SVGTrashBin className="button__svg button__svg--delete" />
-            </button>
+          >
+            <SVGTrashBin className="button__svg button__svg--delete" />
+          </Button>
         </td>
       </tr>
     )
