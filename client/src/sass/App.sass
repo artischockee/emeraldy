@@ -1,12 +1,12 @@
 @import "helpers/variables"
 @import "helpers/functions"
 
-.section-wrapper
-    align-items: center
-    display: flex
-    width: em(964)
-    max-width: em(964)
-    margin: 0 auto
+.header, .main, .footer
+  // align-items: center
+  display: flex
+  margin: 0 auto
+  max-width: 90%
+  width: 90%
 
 .spinner-wrapper
     display: flex
@@ -38,10 +38,8 @@
   100%
     transform: rotate(360deg)
 
+@import "blocks/index"
 
-
-@import "components/login"
-@import "components/header"
 @import "components/main"
 @import "components/home"
 @import "components/footer"
