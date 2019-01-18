@@ -82,6 +82,12 @@
       margin-left: auto
       text-decoration: none
 
+      &:focus
+        outline-color: fade-out($cl-primary, .5)
+        outline-offset: em(2)
+        outline-style: solid
+        outline-width: em(3)
+
 .checkbox-area
   align-items: center
   cursor: pointer
@@ -113,6 +119,10 @@
       top: 8%
       transform: rotate(45deg)
       width: em(4)
+
+    &_has-focus
+      border-color: $cl-primary
+      box-shadow: inset 0 0 em(2) $cl-primary
 
   &__input
     cursor: pointer
