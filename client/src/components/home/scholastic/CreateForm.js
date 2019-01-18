@@ -54,7 +54,7 @@ class CreateForm extends React.Component {
             Choose the project..
           </option>
           {projects.map(project => (
-            <option key={project.id} value={project.id}>{project.name}</option>
+            <option key={project._id} value={project._id}>{project.name}</option>
           ))}
         </Field>
         <Field

@@ -44,9 +44,9 @@ class Table extends React.Component {
           </tr>
         </thead>
         <tbody>
-          {data.entries.length && data.entries.map((entry, index, entries) => {
+          {!!data.entries.length && data.entries.map((entry, index, entries) => {
             return (
-              <React.Fragment key={entry.rowid}>
+              <React.Fragment key={entry._id}>
                 {index > 0 && stringDatesDiffer(entry.date, entries[index - 1].date, 'm') &&
                   <TotalRow date={entries[index - 1].date} />
                 }
@@ -130,7 +130,7 @@ class Row extends React.Component {
       )
       : (
         <UnmodifiableRow
-          id={entry.rowid}
+          id={entry._id}
           projectName={entry.projectName}
           projectId={entry.projectId}
           date={entry.date}
