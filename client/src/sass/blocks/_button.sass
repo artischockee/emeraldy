@@ -1,12 +1,32 @@
 .button
-  outline: none
   background-color: $cl-primary
-  line-height: 1
+  border: none
+  color: white
   cursor: pointer
   font-size: em(16)
-  color: white
-  border: none
+  line-height: 1
+  outline: none
   padding: em(14) em(48)
+  position: relative
+  transition: background-color 200ms ease-out
+
+  &:focus
+    box-shadow: inset 0 0 0 em(2) darken($cl-primary, 8%)
+
+  &:active
+    top: em(2)
+
+  &:hover
+    background-color: lighten($cl-primary, 3%)
 
   &_rounded
     border-radius: em(32)
+
+  // &_warning
+  //   background-color: $cl-danger
+
+    // &:focus
+    //   box-shadow: inset 0 0 0 em(2) darken($cl-danger, 8%)
+
+    // &:hover
+    //   background-color: lighten($cl-danger, 3%)
