@@ -21,13 +21,21 @@
     width: 100%
 
     &::before
-      background-color: $cl-primary
       box-shadow: 0 em(1) fade-out($cl-primary, .75)
       content: ''
       height: 100%
       position: absolute
-      transition: width 150ms ease-out
+      transition-duration: 150ms
+      transition-property: width, background-color
+      transition-timing-function: ease-out
       width: 0
 
+    &_active, &_warning
+      &::before
+        width: 100%
+
     &_active::before
-      width: 100%
+      background-color: $cl-primary
+
+    &_warning::before
+      background-color: $cl-danger
