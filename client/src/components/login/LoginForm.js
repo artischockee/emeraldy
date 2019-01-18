@@ -1,21 +1,14 @@
 import React, { Fragment } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import classNames from 'classnames';
+import {
+  loginSubmitValidator as submitValidator
+} from '../../auxiliary/redux-forms';
+import Button from '../generic/Button';
 
-const validate = (values) => {
-  const errors = {}
-
-  if (!values.login)
-    errors.login = 'Required';
-
-  // console.log(values);
-
-  return errors
-};
-
-const LoginForm = reduxForm({ form: 'login', validate })(
-  ({ handleSubmit }) => (
-    <form className="login__form" onSubmit={handleSubmit}>
+const LoginForm = reduxForm({ form: 'login' })(
+  ({ error, handleSubmit }) => (
+    <form className="login__form" onSubmit={handleSubmit(submitValidator)}>
       <Field
         component={dataInputField}
         label="Login"
@@ -35,13 +28,20 @@ const LoginForm = reduxForm({ form: 'login', validate })(
         name="rememberMe"
         type="checkbox"
       >
-        <a href="/" className="_tmp-anchor-style">
+        <a href="/login" className="_tmp-anchor-style" title="Not implemented yet">
           Forgot password?
         </a>
       </Field>
       <FormFieldWrapper>
         <Fragment key="rightSide">
-          <button className="button button_rounded" type="submit">Login</button>
+          <Button
+            className={classNames(
+              "button button_rounded",
+              // { "button_warning": error }
+            )}
+            content="Login"
+            type="submit"
+          />
         </Fragment>
       </FormFieldWrapper>
     </form>
@@ -69,11 +69,12 @@ const dataInputField = ({
         />
         <div className={classNames(
           "input-area__underline",
-          { "input-area__underline_active": active }
+          {
+            "input-area__underline_active": active && !error,
+            "input-area__underline_warning": error
+          }
         )} />
       </div>
-      {/* {touched &&
-        (error && <span>{error}</span>)} */}
     </Fragment>
   </FormFieldWrapper>
 );
@@ -91,7 +92,10 @@ const rememberMeField = ({
       <div className="checkbox-area">
         <div className={classNames(
           "checkbox-area__container",
-          { "checkbox-area__container_checked": input.value }
+          {
+            "checkbox-area__container_checked": input.value,
+            "checkbox-area__container_has-focus": active
+          }
         )}>
           <input
             {...input}
