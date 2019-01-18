@@ -3,20 +3,37 @@ import PropTypes from 'prop-types';
 
 class Button extends React.Component {
   render() {
-    const { className, content, children, onClick: handleAction, reference } = this.props
+    const { className, content, children, onClick: handleAction, reference, type } = this.props
 
     return (
-      <button ref={reference} className={className} onClick={handleAction}>
+      <button
+        className={className}
+        onClick={handleAction}
+        ref={reference}
+        type={type}
+      >
         {content || children}
       </button>
     )
   }
 }
 
+Button.defaultProps = {
+  type: 'button'
+};
+
 Button.propTypes = {
   className: PropTypes.string,
   content: PropTypes.node,
-  onClick: PropTypes.func.isRequired
+  onClick: function(props, propName, componentName) {
+    if (!props.propName && props.type === 'button')
+      return new Error(
+        `The prop \`${propName}\` is marked as required in \`${componentName}\` (in cases when \`type\` is 'button'), but its value is \`${props.propName}\`.`
+      );
+  },
+  type: PropTypes.oneOf([
+    'submit', 'button', 'reset'
+  ])
 };
 
 export default Button;
