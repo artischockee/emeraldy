@@ -1,13 +1,7 @@
-const Projects = require('./projects');
+const mongoose = require('mongoose');
 
-class Project {
-  constructor(data) {
-    this.name = data.name;
-  }
+const ProjectSchema = new mongoose.Schema({
+  name: { type: String, required: true }
+});
 
-  save() {
-    return Projects.insertData(this);
-  }
-}
-
-module.exports = Project;
+module.exports = mongoose.model('Project', ProjectSchema);

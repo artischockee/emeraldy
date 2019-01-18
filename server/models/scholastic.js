@@ -1,58 +1,38 @@
-const Base = require('./generic/base');
-const tableNames = require('../common/tableNames');
+const mongoose = require('mongoose');
 
-class Scholastic extends Base {
-  constructor() {
-    super('scholastic', {
-      date: 'TEXT PRIMARY KEY',
-      hours: 'INTEGER',
-      minutes: 'INTEGER',
-      projectId: 'INTEGER'
-    });
-  }
+  // const newshit = new Shit({ name: 'shitty fuck tucsr' });
 
-  getTableData() {
-    const { columns, tableName, db } = this;
+  // newshit.save((err, obj) => {
+  //   if (err) return console.error(err);
+  //
+  //   obj.stink();
+  // })
 
-    const sch = tableName;
-    const prj = tableNames.projects;
+  // Shit.find((err, objs) => {
+  //   if (err) return console.error(err);
+  //
+  //   console.log(objs);
+  // });
+  // Shit.find({ name: /^shit/ }, (err, objs) => {
+  //   if (err) return console.error(err);
+  //
+  //   console.log(objs);
+  // });
 
-    const sql = `SELECT ${sch}.rowid, ${prj}.name AS projectName, ${Object.keys(columns)} FROM ${sch} JOIN ${prj} ON ${prj}.rowid = ${sch}.projectId ORDER BY date`;
 
-    return db.all(sql);
-  }
+const ScholasticSchema = new mongoose.Schema({
+  date: { type: Date, required: true },
+  hours: Number,
+  minutes: Number,
+  project_id: { type: String, required: true }
+});
 
-  getTotalTime() {
-    const { columns, tableName, db } = this;
-    const sql = `SELECT SUM(hours) AS hours, SUM(minutes) AS minutes FROM ${tableName}`;
+// ScholasticSchema.methods.smth = function () {
+//   let greeting = this.name
+//     ? `My name is ${this.name}`
+//     : 'I dont even have the name!';
+//
+//   console.log(greeting);
+// };
 
-    return db.get(sql);
-  }
-
-  insertData(data) {
-    const { columns, db, tableName } = this;
-    const { date, hours, minutes, project } = data;
-    const colNames = Object.keys(columns).map(key => '(?)').toString();
-    const sql = `INSERT INTO ${tableName} VALUES (${colNames})`;
-
-    return db.run(sql, [ date, hours, minutes, project ]);
-  }
-
-  deleteData(id) {
-    const { columns, db, tableName } = this;
-    const sql = `DELETE FROM ${tableName} WHERE rowid = (?)`;
-
-    return db.run(sql, [ id ]);
-  }
-
-  updateData(id, data) {
-    const { columns, db, tableName } = this;
-    const { date, hours, minutes, projectId } = data;
-    const colNames = Object.keys(columns).map(key => `${key} = (?)`).toString();
-    const sql = `UPDATE ${tableName} SET ${colNames} WHERE rowid = (?)`;
-
-    return db.run(sql, [ date, hours, minutes, projectId, id ]);
-  }
-}
-
-module.exports = new Scholastic();
+module.exports = mongoose.model('Scholastic', ScholasticSchema);
