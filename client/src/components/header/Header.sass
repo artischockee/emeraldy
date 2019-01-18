@@ -1,0 +1,116 @@
+@import "../../sass/helpers/variables"
+@import "../../sass/helpers/functions"
+
+.header
+  align-items: stretch
+  padding: em(24) 0 em(8)
+
+  &_of-section
+    margin: 0
+    max-width: none
+    padding: 0 0 em(8)
+    width: auto
+
+  &__logo-container
+    align-items: center
+    display: flex
+    flex-direction: column
+
+  &__nav, &__login, &__tools
+    align-items: center
+    display: flex
+
+  &__nav-social
+    margin-left: em(64)
+
+  &__nav-links
+    margin-left: auto
+    margin-right: em(80)
+
+// should not be here
+.svg__lens
+  fill: black
+  height: auto
+  width: em(16)
+
+.nav
+  &__ul
+    height: 100%
+    margin: 0
+    padding: 0
+
+  &__li
+    align-items: center
+    display: inline-flex
+    height: 100%
+    list-style: none
+    margin-right: em(48)
+
+    &:last-child
+      margin-right: 0
+
+    &--narrow
+      margin-right: em(24)
+
+.li
+  &__link
+    color: $cl-black-soft
+    font-size: em(15)
+    line-height: 0
+    font-weight: 500
+    position: relative
+    text-decoration: none
+
+    &::before
+      background-color: $cl-primary
+      bottom: em(-12)
+      content: ''
+      height: em(3)
+      position: absolute
+      transition: width 250ms ease-out
+      width: 0
+
+    &.active::before
+      width: 100%
+
+.logo__svg
+    background-color: $cl-primary
+    fill: white
+    height: auto
+    padding: em(4)
+    transition-duration: 200ms
+    transition-property: background-color, fill
+    transition-timing-function: ease-out
+    width: em(36)
+
+    &:hover
+        background-color: white
+        fill: $cl-primary
+
+.logo__text
+    color: $cl-primary
+    display: block
+    font-size: em(14)
+    font-weight: 600
+    margin: 0
+    margin-top: em(4)
+
+.login-button
+    align-items: center
+    border-radius: em(24)
+    border: em(2) solid $cl-gray
+    box-sizing: border-box
+    color: $cl-gray-dark
+    display: flex
+    font-size: em(13)
+    font-weight: 500
+    height: 80%
+    padding: 0 em(28)
+    text-decoration: none
+    text-transform: uppercase
+    transition: all 200ms ease-out
+
+    &:hover, &.active
+        background-color: $cl-primary
+        border-color: $cl-primary
+        color: white

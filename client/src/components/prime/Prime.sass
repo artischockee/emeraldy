@@ -1,0 +1,45 @@
+@import "../../sass/helpers/variables"
+@import "../../sass/helpers/functions"
+
+.prime
+  display: grid
+  flex: auto
+  grid-template-columns: 1fr
+  grid-template-rows: 75% 25%
+
+  &__title
+    grid-column: 2 / 8
+    font-size: em(52)
+    margin: auto 0 em(26)
+    color: white
+
+  &__learn-more
+    align-items: center
+    background-color: white
+    color: $cl-black-soft
+    display: flex
+    font-size: em(14)
+    font-weight: 500
+    grid-column: 2 / 4
+    grid-row: 1 / 2
+    justify-content: center
+    line-height: 1
+    margin: 0
+    text-transform: uppercase
+
+  &__information
+    background-color: white
+    box-sizing: border-box
+    color: black
+    font-size: em(14)
+    grid-column: 6 / 13
+    grid-row: 1 / 3
+
+  &__location
+    grid-column: 2 / 5
+
+  &__price
+    grid-column: 5 / 7
+
+  &__location, &__price
+    padding-top: em(32)
