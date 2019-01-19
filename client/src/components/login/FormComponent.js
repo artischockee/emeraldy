@@ -1,7 +1,6 @@
 import React from 'react';
-import classNames from 'classnames';
+import ComponentWrapper from './ComponentWrapper';
 import LoginForm from './LoginForm';
-import { timeout } from '../../auxiliary/timeout';
 
 class FormComponent extends React.Component {
   static headerStyle = {
@@ -9,18 +8,13 @@ class FormComponent extends React.Component {
   };
 
   render() {
-    const { shouldTranslate } = this.props;
-
     return (
-      <div className={classNames(
-        "login__component",
-        { "login__component_is-translating": shouldTranslate }
-      )}>
+      <ComponentWrapper>
         <div className="login__header" style={FormComponent.headerStyle}>
           <h1 className="login__title">Sign in</h1>
         </div>
         <LoginForm />
-      </div>
+      </ComponentWrapper>
     );
   }
 }
