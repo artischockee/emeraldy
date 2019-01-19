@@ -1,19 +1,20 @@
 import { SubmissionError } from 'redux-form';
 import { timeout } from '../timeout';
 
-const submit = (values) => {
-  const validateField = (field) => (
-    !field || field === '' || /^\s*$/.test(field)
-  );
+const validateField = (field) => (
+  !field || field === '' || /^\s*$/.test(field)
+);
 
-  return timeout(250)
+const submit = (values) => {
+  return timeout(750)
     .then(() => {
       const noLogin = validateField(values.login);
       const noPassword = validateField(values.password);
 
-      if (!noLogin && !noPassword)
+      if (!noLogin && !noPassword) {
+        console.log('will submit', values);
         return;
-
+      }
       const errorData = {
         _error: true
       };
