@@ -7,8 +7,11 @@ import {
 import Button from '../generic/Button';
 
 const LoginForm = reduxForm({ form: 'login' })(
-  ({ error, handleSubmit }) => (
-    <form className="login__form" onSubmit={handleSubmit(submitValidator)}>
+  ({ error, handleSubmit, submitting }) => (
+    <form
+      className="login__form"
+      onSubmit={handleSubmit(submitValidator)}
+    >
       <Field
         component={dataInputField}
         label="Login"
@@ -35,12 +38,10 @@ const LoginForm = reduxForm({ form: 'login' })(
       <FormFieldWrapper>
         <Fragment key="rightSide">
           <Button
-            className={classNames(
-              "button button_rounded",
-              // { "button_warning": error }
-            )}
+            className="button button_rounded"
             content="Login"
             type="submit"
+            disabled={submitting}
           />
         </Fragment>
       </FormFieldWrapper>
