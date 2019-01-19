@@ -1,0 +1,77 @@
+@import "../../sass/helpers/variables"
+@import "../../sass/helpers/functions"
+
+@media only screen and (max-width: 768px)
+  .login
+    background-color: white
+
+    &__container
+      border-radius: 0
+      flex: auto
+      width: 100%
+
+    &__component
+      flex: auto
+
+    &__header
+      height: 20vw
+      min-height: em(140)
+
+    &__form
+      display: flex
+      flex-direction: column
+      flex: auto
+      justify-content: center
+      padding: em(48) 15% em(64)
+
+@media only screen and (max-width: 425px)
+  .login
+    height: 100%
+
+    &__form-field
+      flex-direction: column
+      margin-bottom: em(32)
+
+  .form-field
+    &__left-side
+      justify-content: flex-start
+      margin-right: 0
+      max-width: 100%
+      padding-bottom: 0
+      width: auto
+
+      .label
+        line-height: 1.4
+
+    &__right-side
+      .input-area
+        height: auto
+
+        &__input
+          font-size: em(22)
+
+      .button
+        width: 100%
+
+@media only screen and (max-width: 320px)
+  .login
+    &__form-field
+      &:last-child
+        margin-top: 0
+
+  .form-field
+    &__right-side
+      &_flex
+        align-items: flex-start
+        flex-direction: column
+
+        .checkbox-area
+          margin-bottom: em(16)
+
+          .label
+            &_for-checkbox
+              line-height: 1.4
+
+        ._tmp-anchor-style
+          line-height: 1.4
+          margin-left: 0
