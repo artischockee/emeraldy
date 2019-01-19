@@ -1,5 +1,5 @@
 import { SubmissionError } from 'redux-form';
-import { timeout } from '../timeout';
+import { timeout } from '../';
 
 const validateField = (field) => (
   !field || field === '' || /^\s*$/.test(field)
