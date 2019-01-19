@@ -7,7 +7,7 @@ import {
 import Button from '../generic/Button';
 
 const LoginForm = reduxForm({ form: 'login' })(
-  ({ error, handleSubmit, submitting }) => (
+  ({ error, handleSubmit, submitting, submitSucceeded }) => (
     <form
       className="login__form"
       onSubmit={handleSubmit(submitValidator)}
@@ -41,7 +41,7 @@ const LoginForm = reduxForm({ form: 'login' })(
             className="button button_rounded"
             content="Login"
             type="submit"
-            disabled={submitting}
+            disabled={submitting || submitSucceeded}
           />
         </Fragment>
       </FormFieldWrapper>
