@@ -1,30 +1,19 @@
 import './Login.sass';
 import React from 'react';
-import LoginForm from './LoginForm';
+import { connect } from 'react-redux';
+import FormComponent from './FormComponent';
+import SuccessComponent from './SuccessComponent';
 
 class Login extends React.Component {
-  state = {
-    result: null
-  }
-
-  static headerStyle = {
-    backgroundImage: 'url(images/login/header-background.jpg)'
-  };
-
   onLogIn = async (data) => {
-    // {login: "", password: ""}
-
-    const { login, password } = data;
-
-    if (login === '' || password === '')
-      return;
+    return;
 
     const response = await fetch('/api/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ login, password })
+      body: JSON.stringify({ })
     });
 
     const body = await response.json();
@@ -41,17 +30,23 @@ class Login extends React.Component {
   }
 
   render() {
+    const { submitSucceeded } = this.props;
+
     return (
       <section className="login">
         <div className="login__container">
-          <div className="login__header" style={Login.headerStyle}>
-            <h1 className="login__title">Sign in</h1>
-          </div>
-          <LoginForm onSubmit={this.onLogIn} />
+          <FormComponent shouldTranslate={submitSucceeded} />
+          {submitSucceeded &&
+            <SuccessComponent />
+          }
         </div>
       </section>
     );
   }
 }
 
-export default Login;
+const mapStateToProps = (state, ownProps) => ({
+  submitSucceeded: state.form['login'] && state.form['login'].submitSucceeded
+});
+
+export default connect(mapStateToProps)(Login);
