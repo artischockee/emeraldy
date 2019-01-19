@@ -12,31 +12,49 @@
   &__container
     background-color: white
     border-radius: em(12)
+    display: flex
+    flex-direction: column
     max-width: 100%
     overflow: hidden
     position: relative
     width: em(680)
 
   &__component
-    &_last
+    display: flex
+    flex-direction: column
+    justify-content: center
+
+    &_align-center
+      align-items: center
+
+    &_enter, &_exit
+      transition-duration: 1s
+      transition-property: transform, opacity
+      transition-timing-function: ease-in-out
+
+    &_enter, &_enter-done
       height: 100%
       left: 0
       position: absolute
       top: 0
-      transform: translateX(100%)
       width: 100%
 
-    &_last-is-translating
-      transform: translateX(0)
-      transition: transform 1s ease-in-out
+    &_enter
+      transform: translateX(100%)
 
-    &_is-translating
+    &_enter-active
+      transform: translateX(0)
+
+    &_exit-active
+      opacity: 0
       transform: translateX(-100%)
-      transition: transform 1s ease-in-out
+
+    &_exit-done
+      visibility: hidden
 
   &__header
     align-items: center
-    background-position: 0 -248px
+    background-position-y: 69%
     background-repeat: no-repeat
     background-size: cover
     display: flex
@@ -59,8 +77,10 @@
     font-weight: 800
     line-height: 1
     margin: 0
-    text-transform: uppercase
+    pointer-events: none
     text-shadow: 0 0 em(8) fade-out(black, .95)
+    text-transform: uppercase
+    user-select: none
     z-index: 1
 
   &__form
@@ -74,6 +94,18 @@
       margin-bottom: 0
       margin-top: 2em
 
+  &__svg
+    fill: $cl-primary
+    margin: em(16) 0
+    width: em(128)
+
+  &__welcome-message
+    align-items: center
+    color: $cl-black-soft
+    display: flex
+    font-size: em(16)
+    justify-content: center
+    margin: em(4) 0 em(16)
 
 .form-field
   &__left-side
@@ -98,6 +130,7 @@
       color: #767676
       font-size: em(14)
       margin-left: auto
+      line-height: 1
       text-decoration: none
 
       &:focus
