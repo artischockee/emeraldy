@@ -1,5 +1,5 @@
-import './Login.sass';
-import './Login_media.sass';
+import './login.sass';
+import './login_media.sass';
 import React from 'react';
 import { connect } from 'react-redux';
 import { CSSTransition } from 'react-transition-group';
