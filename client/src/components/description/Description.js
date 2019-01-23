@@ -1,5 +1,6 @@
 import './Description.sass';
 import React from 'react';
+import Link from '../generic/Link';
 
 const Description = () => (
   <section className="section main__section">
@@ -10,6 +11,7 @@ const Description = () => (
       <div className="grid grid_col-12 grid_row-2">
         <p className="home__learn-more">
           Learn more
+          <Link className="li__link" to="/login">Login page</Link>
         </p>
         <div className="home__information grid grid_col-7">
           <div className="home__location">
