@@ -8,7 +8,7 @@ const Root = ({ location }) => (
   <TransitionGroup component={null}>
     <CSSTransition
       key={location.key}
-      timeout={{ enter: 300, exit: 300 }}
+      timeout={300}
       classNames="fade"
     >
       <section className="route-section">
