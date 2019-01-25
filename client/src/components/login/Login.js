@@ -2,9 +2,9 @@ import './login.sass';
 import './login_media.sass';
 import React from 'react';
 import { connect } from 'react-redux';
-import { hasSubmitSucceeded } from 'redux-form';
+// import { hasSubmitSucceeded } from 'redux-form';
 import { CSSTransition } from 'react-transition-group';
-import { timeout } from '../../auxiliary';
+// import { timeout } from '../../auxiliary';
 import FormComponent from './FormComponent';
 import SuccessComponent from './SuccessComponent';
 
@@ -18,10 +18,7 @@ class Login extends React.Component {
   };
 
   render() {
-    const { submitSucceeded } = this.props;
-
-    if (submitSucceeded)
-      console.log('submitSucceeded has got \'true\' value right now.');
+    const { isLoggedSuccessfully } = this.props;
 
     return (
       <section className="login">
@@ -32,7 +29,7 @@ class Login extends React.Component {
               exitActive: 'login__component_exit-active',
               exitDone: 'login__component_exit-done'
             }}
-            in={!submitSucceeded}
+            in={!isLoggedSuccessfully}
             timeout={Login.transitionTimeout}
           >
             <FormComponent />
@@ -43,9 +40,9 @@ class Login extends React.Component {
               enterActive: 'login__component_enter-active',
               enterDone: 'login__component_enter-done'
             }}
-            in={submitSucceeded}
+            in={isLoggedSuccessfully}
             mountOnEnter
-            onEntered={this.performLogIn}
+            // onEntered={this.performLogIn}
             timeout={Login.transitionTimeout}
           >
             <SuccessComponent />
@@ -57,7 +54,7 @@ class Login extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  submitSucceeded: hasSubmitSucceeded('login')(state),
+  isLoggedSuccessfully: state.user.isLoggedIn
 });
 
 export default connect(mapStateToProps)(Login);
