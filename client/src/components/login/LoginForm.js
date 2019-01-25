@@ -7,7 +7,7 @@ import {
 import Button from '../generic/Button';
 
 const LoginForm = reduxForm({ form: 'login' })(
-  ({ error, handleSubmit, submitting, submitSucceeded }) => (
+  ({ handleSubmit, submitting, submitSucceeded }) => (
     <form
       className="login__form"
       onSubmit={handleSubmit(submitValidator)}
