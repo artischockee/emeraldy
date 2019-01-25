@@ -1,5 +1,20 @@
 const Account = require('../models/account');
 
+// const admin = new Account({
+//   login: 'artischocke',
+//   email: 'artyeug@gmail.com',
+//   password: 'supreme',
+//   firstName: 'Artem',
+//   lastName: 'Piskarev'
+// });
+//
+// admin.save((err, obj) => {
+//   if (err) return console.error(err);
+// });
+
+
+
+
 exports.get = (req, res, next) => {
   // try {
   //   Projects.selectAllRows().then(
@@ -10,31 +25,55 @@ exports.get = (req, res, next) => {
   // }
 };
 
-exports.authenticate = (req, res, next) => {
-  // try {
-  //   Login.checkLoginForExistence(req.body.login).then(
-  //     (data) => {
-  //       if (!data)
-  //         return res.status(404).send('No user found.');
-  //
-  //       req.data = data;
-  //       next();
-  //     }
-  //   );
-  // } catch (error) {
-  //   res.status(400).send(JSON.stringify(error));
-  // }
+exports.authenticate = async (req, res, next) => {
+  const { login } = req.body;
+
+  const entryToFind = {
+    login
+  };
+
+  let accountData = null;
+
+  try {
+    await Account.findOne(entryToFind, (error, object) => {
+      if (error)
+        console.error(error);
+      if (object)
+        accountData = object;
+    });
+
+    if (accountData === null) {
+      const errorMessage = {
+        error: `User ${login} doesn't exist.`
+      };
+
+      return res.status(404).send(JSON.stringify(errorMessage));
+    }
+
+    req.data = accountData;
+    next();
+  }
+  catch (error) {
+    res.status(400).send(JSON.stringify(error));
+  }
 };
 
 exports.logging = (req, res) => {
-  // try {
-  //   if (req.body.password === req.data.password) {
-  //     console.log('login is correct...');
-  //     res.send('Everything is OK');
-  //   }
-  // } catch (error) {
-  //   res.status(400).send(JSON.stringify(error));
-  // }
+  try {
+    if (req.body.password === req.data.password) {
+      console.log('login is correct...');
+      res.send('Everything is OK');
+    }
+    else {
+      const errorMessage = {
+        error: `The password for user ${req.body.login} doesn't match.`
+      };
+
+      return res.status(404).send(JSON.stringify(errorMessage));
+    }
+  } catch (error) {
+    res.status(400).send(JSON.stringify(error));
+  }
 };
 
 exports.create = (req, res, next) => {
