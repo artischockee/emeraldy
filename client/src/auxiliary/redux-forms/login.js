@@ -1,31 +1,30 @@
 import { SubmissionError } from 'redux-form';
+import { submitLogin } from '../../actions';
 import { timeout } from '../';
 
 const validateField = (field) => (
   !field || field === '' || /^\s*$/.test(field)
 );
 
-const submit = (values) => {
-  return timeout(750)
-    .then(() => {
-      const noLogin = validateField(values.login);
-      const noPassword = validateField(values.password);
+const submit = (values, dispatch) => {
+  return timeout(750).then(() => {
+    const noLogin = validateField(values.login);
+    const noPassword = validateField(values.password);
 
-      if (!noLogin && !noPassword) {
-        console.log('will submit', values);
-        return;
-      }
-      const errorData = {
-        _error: true
-      };
+    if (!noLogin && !noPassword)
+      return dispatch(submitLogin(values));
 
-      if (noLogin)
-        errorData.login = true;
-      if (noPassword)
-        errorData.password = true;
+    const errorData = {
+      _error: true
+    };
 
-      throw new SubmissionError(errorData);
-    });
+    if (noLogin)
+      errorData.login = true;
+    if (noPassword)
+      errorData.password = true;
+
+    throw new SubmissionError(errorData);
+  });
 };
 
 export { submit as loginSubmitValidator };
