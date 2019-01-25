@@ -13,7 +13,26 @@ const Account = require('../models/account');
 // });
 
 
+const hydrateUserData = (rawData, listOfProps = [ '__v', '_id' ]) => {
 
+  // console.log('hydrateUserData', rawData, listOfProps);
+  if (rawData === null || rawData === undefined)
+    return null;
+
+  // const data = rawData;
+  const data = Object.assign({}, rawData);
+
+  // listOfProps.forEach(prop => delete data[prop])
+
+  // delete data.password;
+  // delete data.__v;
+  // delete data._id;
+
+  console.log('old data', rawData);
+  console.log('hydrated data', data);
+
+  return data;
+};
 
 exports.get = (req, res, next) => {
   // try {
@@ -39,7 +58,7 @@ exports.authenticate = async (req, res, next) => {
       if (error)
         console.error(error);
       if (object)
-        accountData = object;
+        accountData = hydrateUserData(object);
     });
 
     if (accountData === null) {
@@ -62,7 +81,7 @@ exports.logging = (req, res) => {
   try {
     if (req.body.password === req.data.password) {
       console.log('login is correct...');
-      res.send('Everything is OK');
+      res.send(JSON.stringify(req.data));
     }
     else {
       const errorMessage = {
