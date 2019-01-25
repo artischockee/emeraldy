@@ -8,7 +8,10 @@ function initialize() {
   const app = express();
   const PORT = process.env.PORT || 5000;
 
-  mongoose.connect('mongodb://localhost/new_database', { useNewUrlParser: true });
+  mongoose.connect(
+    'mongodb://localhost/new_database',
+    { useNewUrlParser: true }
+  );
 
   const db = mongoose.connection;
   db.on('error', console.error.bind(console, 'MongoDB connection error:'));
