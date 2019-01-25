@@ -2,42 +2,26 @@ import './login.sass';
 import './login_media.sass';
 import React from 'react';
 import { connect } from 'react-redux';
+import { hasSubmitSucceeded } from 'redux-form';
 import { CSSTransition } from 'react-transition-group';
 import { timeout } from '../../auxiliary';
 import FormComponent from './FormComponent';
 import SuccessComponent from './SuccessComponent';
 
 class Login extends React.Component {
-  onLogIn = async (data) => {
-    return;
-
-    const response = await fetch('/api/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ })
-    });
-
-    const body = await response.json();
-
-    console.log(body);
-
-    if (response.ok) {
-
-    }
-  }
-
   static transitionTimeout = 1000; // in ms
 
   performLogIn = async () => {
-    await timeout(500);
+    // await timeout(500);
 
-    console.log('log in process..');
+    // console.log('log in process..');
   };
 
   render() {
     const { submitSucceeded } = this.props;
+
+    if (submitSucceeded)
+      console.log('submitSucceeded has got \'true\' value right now.');
 
     return (
       <section className="login">
@@ -73,7 +57,7 @@ class Login extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  submitSucceeded: state.form['login'] && state.form['login'].submitSucceeded
+  submitSucceeded: hasSubmitSucceeded('login')(state),
 });
 
 export default connect(mapStateToProps)(Login);
