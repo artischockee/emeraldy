@@ -1,56 +1,24 @@
 const Account = require('../models/account');
+const ErrorMessage = require('../errorMessage');
 
-// const admin = new Account({
-//   login: 'artischocke',
-//   email: 'artyeug@gmail.com',
-//   password: 'supreme',
-//   firstName: 'Artem',
-//   lastName: 'Piskarev'
+// const staff = new Account({
+//   login: 'staff',
+//   email: 'staff@emeraldy.com',
+//   password: 'qwe'
 // });
-//
-// admin.save((err, obj) => {
+// staff.save((err, obj) => {
 //   if (err) return console.error(err);
 // });
 
 
-const hydrateUserData = (rawData, listOfProps = [ '__v', '_id' ]) => {
-
-  // console.log('hydrateUserData', rawData, listOfProps);
-  if (rawData === null || rawData === undefined)
-    return null;
-
-  // const data = rawData;
-  const data = Object.assign({}, rawData);
-
-  // listOfProps.forEach(prop => delete data[prop])
-
-  // delete data.password;
-  // delete data.__v;
-  // delete data._id;
-
-  console.log('old data', rawData);
-  console.log('hydrated data', data);
-
-  return data;
-};
-
 exports.get = (req, res, next) => {
-  // try {
-  //   Projects.selectAllRows().then(
-  //     (data) => res.send(JSON.stringify(data))
-  //   );
-  // } catch (error) {
-  //   res.status(400).send(JSON.stringify(error));
-  // }
+
 };
 
 exports.authenticate = async (req, res, next) => {
   const { login } = req.body;
 
-  const entryToFind = {
-    login
-  };
-
+  const entryToFind = { login };
   let accountData = null;
 
   try {
@@ -58,13 +26,13 @@ exports.authenticate = async (req, res, next) => {
       if (error)
         console.error(error);
       if (object)
-        accountData = hydrateUserData(object);
+        accountData = object;
     });
 
     if (accountData === null) {
-      const errorMessage = {
-        error: `User ${login} doesn't exist.`
-      };
+      const errorMessage = new ErrorMessage({
+        login: `User ${login} does not exist`
+      });
 
       return res.status(404).send(JSON.stringify(errorMessage));
     }
@@ -78,15 +46,21 @@ exports.authenticate = async (req, res, next) => {
 };
 
 exports.logging = (req, res) => {
+  const { data } = req;
   try {
-    if (req.body.password === req.data.password) {
-      console.log('login is correct...');
-      res.send(JSON.stringify(req.data));
+    if (req.body.password === data.password) {
+      const pureData = {
+        login: data.login,
+        firstName: data.firstName,
+        lastName: data.lastName
+      };
+
+      return res.send(JSON.stringify(pureData));
     }
     else {
-      const errorMessage = {
-        error: `The password for user ${req.body.login} doesn't match.`
-      };
+      const errorMessage = new ErrorMessage({
+        password: 'Invalid password'
+      });
 
       return res.status(404).send(JSON.stringify(errorMessage));
     }
