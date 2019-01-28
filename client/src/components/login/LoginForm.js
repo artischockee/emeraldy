@@ -2,11 +2,12 @@ import React, { Fragment } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import classNames from 'classnames';
 import {
-  loginSubmitValidator as submitValidator
+  loginSubmitValidator as submitValidator,
+  loginFormName
 } from '../../auxiliary/redux-forms';
 import Button from '../generic/Button';
 
-const LoginForm = reduxForm({ form: 'login' })(
+const LoginForm = reduxForm({ form: loginFormName })(
   ({ handleSubmit, submitting, submitSucceeded }) => (
     <form
       className="login__form"
@@ -75,6 +76,9 @@ const dataInputField = ({
             "input-area__underline_warning": error
           }
         )} />
+        {touched && error && typeof error === 'string' &&
+          <span className="input-area__error">{error}</span>
+        }
       </div>
     </Fragment>
   </FormFieldWrapper>
