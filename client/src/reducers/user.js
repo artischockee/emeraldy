@@ -2,18 +2,19 @@ import { User } from '../actions';
 
 const initialState = {
   isLoggedIn: false,
-  isLoginFailed: false
+  login: null,
+  firstName: null,
+  lastName: null
 };
 
 const user = (state = initialState, action) => {
   switch (action.type) {
     case User.LOGIN_SUCCESSFUL:
       return Object.assign({}, state, {
-        isLoggedIn: true
-      });
-    case User.LOGIN_FAILED:
-      return Object.assign({}, state, {
-        isLoginFailed: true
+        isLoggedIn: true,
+        login: action.payload.login,
+        firstName: action.payload.firstName,
+        lastName: action.payload.lastName
       });
     default:
       return state;
