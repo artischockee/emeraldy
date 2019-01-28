@@ -1,8 +1,8 @@
-const ENTITY = "Projects";
+const ENTITY = 'Projects/';
 
 export const Projects = {
-  LOAD_DATA: `${ENTITY} LOAD DATA`,
-  UNLOAD_DATA: `${ENTITY} UNLOAD DATA`
+  LOAD_DATA: `${ENTITY}LOAD DATA`,
+  UNLOAD_DATA: `${ENTITY}UNLOAD DATA`
 };
 
 export const loadData = (data) => ({
