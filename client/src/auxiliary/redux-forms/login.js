@@ -7,12 +7,14 @@ const validateField = (field) => (
 );
 
 const submit = (values, dispatch) => {
-  return timeout(750).then(() => {
+  return timeout(500).then(() => {
     const noLogin = validateField(values.login);
     const noPassword = validateField(values.password);
 
-    if (!noLogin && !noPassword)
-      return dispatch(submitLogin(values));
+    if (!noLogin && !noPassword) {
+      dispatch(submitLogin(values));
+      return;
+    }
 
     const errorData = {
       _error: true
