@@ -2,19 +2,17 @@ import './login.sass';
 import './login_media.sass';
 import React from 'react';
 import { connect } from 'react-redux';
-// import { hasSubmitSucceeded } from 'redux-form';
 import { CSSTransition } from 'react-transition-group';
-// import { timeout } from '../../auxiliary';
+import { timeout } from '../../auxiliary';
 import FormComponent from './FormComponent';
 import SuccessComponent from './SuccessComponent';
 
 class Login extends React.Component {
   static transitionTimeout = 1000; // in ms
 
-  performLogIn = async () => {
-    // await timeout(500);
-
-    // console.log('log in process..');
+  redirectToApplication = async () => {
+    await timeout(1000);
+    this.props.history.push('/');
   };
 
   render() {
@@ -42,7 +40,7 @@ class Login extends React.Component {
             }}
             in={isLoggedSuccessfully}
             mountOnEnter
-            // onEntered={this.performLogIn}
+            onEntered={this.redirectToApplication}
             timeout={Login.transitionTimeout}
           >
             <SuccessComponent />
