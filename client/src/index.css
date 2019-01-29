@@ -8,7 +8,6 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-y: scroll;
 }
 
 input, button {
@@ -25,15 +24,8 @@ code {
 #root {
   display: flex;
   flex-direction: column;
+  height: 100vh;
   min-height: 100vh;
-  opacity: 0;
-  transition: opacity 700ms ease-out;
-  visibility: hidden;
-}
-
-#root.visible {
-  opacity: 1;
-  visibility: visible;
 }
 
 .fade-enter {
@@ -60,12 +52,6 @@ code {
 }
 
 .route-section {
-  /* position: absolute; */
-  width: 100%;
-  /* height: 100%; */
-  flex: auto;
   display: flex;
-  flex-direction: column;
-  /* top: 0;
-  left: 0; */
+  flex: auto;
 }
