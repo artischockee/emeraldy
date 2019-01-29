@@ -16,9 +16,20 @@ const user = (state = initialState, action) => {
         firstName: action.payload.firstName,
         lastName: action.payload.lastName
       });
+    case User.LOGOUT_SUBMIT:
+      return initialState;
     default:
       return state;
   }
 };
 
 export default user;
+
+export const getSomething = (state, filter) => {
+  switch (filter) {
+    case 'a':
+      return state;
+    default:
+      throw new Error(`Unknown filter: ${filter}.`);
+  }
+};

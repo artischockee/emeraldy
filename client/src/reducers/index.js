@@ -3,7 +3,7 @@ import { reducer as formReducer } from 'redux-form';
 import scholasticEditEntry from './scholasticEditEntry';
 import projects from './projects';
 import modalDialog from './modalDialog';
-import user from './user';
+import user, * as fromUser from './user';
 
 export default combineReducers({
   scholasticEditEntry,
@@ -12,3 +12,6 @@ export default combineReducers({
   user,
   form: formReducer
 });
+
+export const getSomething = (state, filter) =>
+  fromUser.getSomething(state.user, filter);
