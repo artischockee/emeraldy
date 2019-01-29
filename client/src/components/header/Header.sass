@@ -3,35 +3,28 @@
 
 .header
   align-items: stretch
-  padding: em(24) 0 em(8)
+  box-sizing: border-box
+  display: flex
+  height: em(64)
+  max-height: em(64)
+  padding: em(8) em(48)
 
-  &_of-section
-    margin: 0
-    max-width: none
-    padding: 0 0 em(8)
-    width: auto
+  &__search-form
+    background-color: lightgray
+    flex: auto
 
-  &__logo-container
-    align-items: center
-    display: flex
-    flex-direction: column
+  &__notifications-area
+    box-sizing: border-box
+    padding: em(14)
+    margin-left: em(4)
+    width: em(48)
 
-  &__nav, &__login, &__tools
-    align-items: center
-    display: flex
+  &__notifications-bell
+    fill: gray
 
-  &__nav-social
-    margin-left: em(64)
+  &__user-block
+    margin-left: em(12)
 
-  &__nav-links
-    margin-left: auto
-    margin-right: em(80)
-
-// should not be here
-.svg__lens
-  fill: black
-  height: auto
-  width: em(16)
 
 .nav
   &__ul
