@@ -1,10 +1,19 @@
 import React from 'react';
-import { Switch, Route, withRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { Switch, Route, BrowserRouter, withRouter } from 'react-router-dom';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import App from './App';
-import Login from './components/login/Login';
+import Login from './login/Login';
 
-const Root = ({ location }) => (
+const Root = ({ store }) => (
+  <Provider store={store}>
+    <BrowserRouter>
+      <Routes />
+    </BrowserRouter>
+  </Provider>
+);
+
+const Routes = withRouter(({ location }) => (
   <TransitionGroup component={null}>
     <CSSTransition
       key={location.key}
@@ -20,6 +29,6 @@ const Root = ({ location }) => (
       </section>
     </CSSTransition>
   </TransitionGroup>
-);
+));
 
-export default withRouter(Root);
+export default Root;
