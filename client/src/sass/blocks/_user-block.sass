@@ -1,0 +1,45 @@
+.user-block
+  display: flex
+  position: relative
+
+  &__userdata-area
+    display: flex
+    cursor: pointer
+    align-items: center
+
+  &__image
+    background-color: lightgray
+    border-radius: 50%
+    height: em(32)
+    width: em(32)
+
+  &__username
+    color: $cl-black-soft
+    font-size: em(15)
+    line-height: 1
+    margin-left: em(8)
+
+  &__caret-down
+    fill: $cl-black-soft
+    margin-left: em(8)
+    width: em(8)
+
+  &__dropdown
+    background-color: white
+    border-radius: em(4)
+    border: em(1) solid fade-out($cl-gray, .75)
+    box-shadow: 0 em(4) em(8) fade-out($cl-gray-dark, .5)
+    min-width: 100%
+    opacity: 0
+    position: absolute
+    right: 0
+    top: 80%
+    transition-duration: 150ms
+    transition-property: top, opacity, visibility
+    transition-timing-function: ease-out
+    visibility: hidden
+
+    &_is-visible
+      opacity: 1
+      top: 100%
+      visibility: visible
