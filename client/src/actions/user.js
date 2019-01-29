@@ -4,12 +4,17 @@ import { loginFormName } from '../auxiliary/redux-forms';
 const ENTITY = 'User/';
 
 export const User = {
-  LOGIN_SUCCESSFUL: `${ENTITY}LOGIN_SUCCESSFUL`
+  LOGIN_SUCCESSFUL: `${ENTITY}LOGIN_SUCCESSFUL`,
+  LOGOUT_SUBMIT: `${ENTITY}LOGOUT_SUBMIT`
 };
 
 const acceptLogin = (data) => ({
   type: User.LOGIN_SUCCESSFUL,
   payload: data
+});
+
+export const submitLogout = () => ({
+  type: User.LOGOUT_SUBMIT
 });
 
 export const submitLogin = (data) => (dispatch) => {
