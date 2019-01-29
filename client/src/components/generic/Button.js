@@ -36,7 +36,7 @@ Button.propTypes = {
   content: PropTypes.node,
   disabled: PropTypes.bool,
   onClick: function(props, propName, componentName) {
-    if (!props.propName && props.type === 'button')
+    if (!props[propName] && props.type === 'button')
       return new Error(
         `The prop \`${propName}\` is marked as required in \`${componentName}\` (in cases when \`type\` is 'button'), but its value is \`${props.propName}\`.`
       );
