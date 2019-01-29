@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import ComponentWrapper from './ComponentWrapper';
-import SVGHappyFace from '../svg/HappyFace';
+import { HappyFace } from '../svg';
 
 const SuccessComponent = ({ user }) => (
   <ComponentWrapper alignCenter>
-    <SVGHappyFace className="login__svg svg" />
+    <HappyFace className="login__svg svg" />
     <p className="login__welcome-message">
       Welcome, {
         (user.firstName && user.lastName)
