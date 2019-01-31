@@ -1,0 +1,36 @@
+.card
+  background-color: white
+  box-shadow: 0 em(10) em(24) fade-out(black, .8)
+  position: relative
+
+  &__image
+    background-repeat: no-repeat
+    background-size: cover
+    height: em(144)
+
+  &__number
+    background-color: white
+    border-radius: em(16)
+    color: black
+    font-size: em(15)
+    line-height: 1
+    padding: em(2) em(16)
+    position: absolute
+    right: em(16)
+    top: em(16)
+
+  &__data
+    padding: em(20)
+
+  &__heading
+    font-size: em(15)
+    font-weight: 600
+
+  &__date
+    font-size: em(12)
+    color: $cl-gray-dark
+
+  &__controls
+    display: flex
+    justify-content: space-between
+    margin-top: em(24)

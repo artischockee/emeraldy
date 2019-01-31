@@ -1,0 +1,13 @@
+.dropdown
+  opacity: 0
+  position: absolute
+  top: 80%
+  transition-duration: 150ms
+  transition-property: top, opacity, visibility
+  transition-timing-function: ease-out
+  visibility: hidden
+
+  &_is-visible
+    opacity: 1
+    top: 100%
+    visibility: visible
