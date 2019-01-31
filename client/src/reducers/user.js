@@ -25,11 +25,13 @@ const user = (state = initialState, action) => {
 
 export default user;
 
-export const getSomething = (state, filter) => {
-  switch (filter) {
-    case 'a':
-      return state;
-    default:
-      throw new Error(`Unknown filter: ${filter}.`);
-  }
-};
+export const hasFullName = (state) => (
+  state.user.firstName && state.user.lastName
+);
+
+export const getName = (state) => ({
+  first: state.user.firstName,
+  last: state.user.lastName
+});
+
+export const getLogin = (state) => state.user.login;
