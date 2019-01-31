@@ -7,8 +7,9 @@ const DropdownContent = ({
 }) => (
   <Tag
     className={classNames({
-      [className]: true,
-      [`${className}_is-visible`]: active
+      dropdown: true,
+      'dropdown_is-visible': active,
+      [className]: true
     })}
   >
     {children}
