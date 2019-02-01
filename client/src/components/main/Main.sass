@@ -1,0 +1,26 @@
+@import "../../sass/helpers/variables"
+@import "../../sass/helpers/functions"
+
+.main
+  background-color: #F7F7F7
+  flex: auto
+  padding: em(24) em(48)
+
+  &__section-top
+    align-items: center
+    display: flex
+
+  &__heading
+    font-size: em(16)
+    font-weight: 500
+    line-height: 1
+
+  &__section-grid
+    display: grid
+    grid-template-columns: repeat(4, 1fr)
+    grid-gap: em(24)
+    margin-top: em(24)
+
+    > p
+      background-color: lightgray
+      margin: 0
