@@ -3,15 +3,47 @@
 
 .header
   align-items: stretch
+  border-bottom: em(1) solid $cl-gray
   box-sizing: border-box
   display: flex
   height: em(64)
   max-height: em(64)
+  min-height: em(64)
   padding: em(12) em(48)
 
   &__search-form
-    background-color: lightgray
+    display: flex
     flex: auto
+    position: relative
+
+    &::after
+      background-color: $cl-primary
+      bottom: 0
+      box-shadow: 0 em(1) fade-out($cl-primary, .75)
+      content: ''
+      height: em(1)
+      position: absolute
+      transition: width 300ms ease-out
+      width: 0
+
+    &_is-active::after
+      width: 100%
+
+  &__search-lens
+    fill: gray
+    height: 100%
+    pointer-events: none
+    position: absolute
+    width: em(16)
+
+  &__input
+    flex: auto
+    margin-right: 60%
+    padding-left: em(32)
+    transition: margin-right 200ms ease-out
+
+  &__search-form_is-active &__input
+    margin-right: 0
 
   &__notifications-area
     align-items: center
