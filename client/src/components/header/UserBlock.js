@@ -26,10 +26,13 @@ class UserBlock extends React.Component {
         </Dropdown.Trigger>
 
         <Dropdown.Content className="user-block__dropdown">
-          <ul>
-            <li>View Profile</li>
-            <li>Settings</li>
-            <li>Log out</li>
+          {userHasFullName &&
+            <p>@{userLogin}</p>
+          }
+          <ul className="clean-ul user-block__clean-ul">
+            <li className="list-item">View Profile</li>
+            <li className="list-item">Settings</li>
+            <li className="list-item">Log out</li>
           </ul>
         </Dropdown.Content>
       </Dropdown>
