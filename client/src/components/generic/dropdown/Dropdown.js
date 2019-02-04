@@ -41,12 +41,6 @@ class Dropdown extends React.Component {
   onWindowClick = (event) => {
     const dropdownElement = this.ref.current;
 
-    console.log(
-    event.target !== dropdownElement,
-    !dropdownElement.contains(event.target),
-    this.state.active
-    );
-
     if (
       (event.target !== dropdownElement)
       && !dropdownElement.contains(event.target)
@@ -57,8 +51,6 @@ class Dropdown extends React.Component {
   };
 
   hide = () => {
-    console.log('hide');
-
     this.setState({
       active: false
     }, () => {
@@ -68,8 +60,6 @@ class Dropdown extends React.Component {
   };
 
   show = () => {
-    console.log('show');
-
     this.setState({
       active: true
     }, () => {
