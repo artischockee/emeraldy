@@ -7,30 +7,6 @@
     margin: em(48) 0
     width: 100%
 
-.spinner
-    align-items: center
-    display: flex
-    justify-content: center
-    height: em(64)
-    width: em(64)
-
-    &::after
-        content: ''
-        display: block
-        width: em(40)
-        height: em(40)
-        border-radius: 50%
-        border: em(4) solid $cl-black-soft
-        border-color: $cl-black-soft transparent $cl-black-soft transparent
-        animation: spinnerRotate 1.2s linear infinite
-
-@keyframes spinnerRotate
-  0%
-    transform: rotate(0deg)
-
-  100%
-    transform: rotate(360deg)
-
 @import "blocks/index"
 
 @import "components/main"
