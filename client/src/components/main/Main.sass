@@ -20,7 +20,29 @@
     grid-template-columns: repeat(4, 1fr)
     grid-gap: em(24)
     margin-top: em(24)
+    position: relative
 
     > p
       background-color: lightgray
       margin: 0
+
+  &__button
+    align-items: center
+    display: flex
+    justify-content: center
+    padding: em(12)
+
+  &__svg
+    fill: white
+    width: em(8)
+
+  &__spinner-wrapper
+    align-items: center
+    display: flex
+    height: 100%
+    justify-content: center
+    left: 0
+    position: absolute
+    top: 0
+    width: 100%
+    z-index: 10
