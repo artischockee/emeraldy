@@ -1,52 +1,81 @@
 import './Main.sass';
 import React from 'react';
+import { times } from 'lodash';
+import { timeout } from '../../auxiliary';
+import { Plus } from '../svg';
+import Button from '../generic/Button';
+import Spinner from '../generic/Spinner';
+import StockCard from '../stock-card';
+
+
+const STOCK_CARDS_API = 'api/stock-cards';
 
 class Main extends React.Component {
+  state = {
+    data: null
+  };
+
+  async componentDidMount() {
+    await timeout(3000);
+
+    fetch(STOCK_CARDS_API)
+      .then(response => response.json())
+      .then(data => this.setState({ data }));
+  }
+
+  // create = () => {
+  //   const data = {
+  //     name: 'Fuck you asshole',
+  //     dateFrom: 'Feb 14',
+  //     dateTo: 'Mar 25',
+  //     imageSrc: './images/background.jpg'
+  //   };
+  //
+  //   const init = {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json'
+  //     },
+  //     body: JSON.stringify(data)
+  //   };
+  //
+  //   fetch(STOCK_CARDS_API, init)
+  //     .then((d) => console.log(d))
+  //     .catch(error => console.error(error));
+  // };
+
   render() {
     return (
       <main className="main">
         <section className="main__section-top">
           <h1 className="heading main__heading">Stock</h1>
           <div style={{ marginLeft: 'auto' }}>
-            <button>+</button>
+            <Button
+              className="button main__button"
+              onClick={this.create}
+            >
+              <Plus className="svg main__svg" />
+            </Button>
           </div>
         </section>
         <section className="main__section-grid">
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
+          {!this.state.data &&
+            <div className="main__spinner-wrapper">
+              <Spinner />
+            </div>
+          }
+          {this.state.data
+            ? this.state.data.map((item, index) => (
+              <StockCard key={index} number={index + 1} {...item} />
+            ))
+            : times(8, (index) => (
+              <StockCard key={index} prerendered />
+            ))
+          }
         </section>
       </main>
     );
   }
 }
-
-const Card = () => (
-  <div className="card" draggable onDragOver={() => console.log('dragover')}>
-    <div
-      className="card__image"
-      style={{backgroundImage: 'url(./images/background.jpg)'}}
-    />
-    <span className="card__number">01</span>
-    <div className="card__data">
-      <h2 className="heading card__heading">
-        Econom' po-krupnomu
-      </h2>
-      <span className="card__date">
-        17 feb - 24 apr
-      </span>
-      <div className="card__controls">
-        <button className="text-button">
-          Edit
-        </button>
-        <button className="text-button text-button_danger">
-          Delete
-        </button>
-      </div>
-    </div>
-  </div>
-);
 
 export default Main;
