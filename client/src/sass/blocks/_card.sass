@@ -1,9 +1,14 @@
 .card
   background-color: white
   box-shadow: 0 em(10) em(24) fade-out(black, .8)
+  cursor: grab
   position: relative
 
+  &_prerendered
+    opacity: .4
+
   &__image
+    background-color: $cl-gray
     background-repeat: no-repeat
     background-size: cover
     height: em(144)
@@ -26,9 +31,19 @@
     font-size: em(15)
     font-weight: 600
 
+    &_prerendered
+      background-color: $cl-gray
+      height: 1em
+
   &__date
-    font-size: em(12)
     color: $cl-gray-dark
+    display: inline-block
+    font-size: em(12)
+
+    &_prerendered
+      background-color: $cl-gray
+      height: 1em
+      width: 40%
 
   &__controls
     display: flex
