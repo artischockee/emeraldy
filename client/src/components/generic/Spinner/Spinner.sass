@@ -1,0 +1,25 @@
+@import "../../../sass/helpers/variables"
+@import "../../../sass/helpers/functions"
+
+.spinner
+  align-items: center
+  display: flex
+  height: em(64)
+  justify-content: center
+  width: em(64)
+
+  &::after
+    animation: spinnerRotate 1.2s linear infinite
+    border: em(4) solid $cl-black-soft
+    border-color: $cl-black-soft transparent $cl-black-soft transparent
+    border-radius: 50%
+    content: ''
+    display: block
+    height: em(40)
+    width: em(40)
+
+@keyframes spinnerRotate
+  0%
+    transform: rotate(0deg)
+  100%
+    transform: rotate(360deg)
