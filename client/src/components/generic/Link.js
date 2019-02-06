@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link as RouterLink, withRouter } from 'react-router-dom';
+import classNames from 'classnames';
 
 class Link extends React.Component {
   isActive = () => {
@@ -21,7 +22,11 @@ class Link extends React.Component {
 
     return (
       <RouterLink
-        className={`${className} ${this.isActive() ? "active" : ""}`} to={to}
+        className={classNames(
+          className,
+          { [`${className}_is-active`]: this.isActive() }
+        )}
+        to={to}
       >
         {children}
       </RouterLink>
