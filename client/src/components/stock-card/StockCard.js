@@ -44,6 +44,7 @@ const StockCard = ({
             { "text-button_prerendered": prerendered }
           )}
           content="Edit"
+          onClick={() => {}}
           disabled={prerendered}
         />
         <Button
@@ -52,6 +53,7 @@ const StockCard = ({
             { "text-button_prerendered": prerendered }
           )}
           content="Delete"
+          onClick={() => {}}
           disabled={prerendered}
         />
       </div>
