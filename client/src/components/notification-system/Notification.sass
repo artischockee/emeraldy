@@ -1,0 +1,67 @@
+@import "../../sass/helpers/index"
+
+.notification
+  background-color: white
+  border-radius: em(4)
+  border: em(1) solid $cl-gray
+  margin-bottom: em(12)
+  max-width: em(384)
+  overflow: hidden
+  width: em(384)
+
+  &:last-child
+    margin-bottom: 0
+
+  &__header
+    align-items: flex-start
+    background-color: $cl-danger
+    display: flex
+    padding: em(16)
+
+    &_exclamation
+      background-color: $cl-danger
+
+    &_information
+      background-color: $cl-primary
+
+    &_question
+      background-color: $cl-blue-light
+
+  &__svg
+    fill: white
+    width: em(16)
+
+    &_small
+      width: em(10)
+
+  &__header-text-area
+    color: white
+    flex: auto
+    margin-left: em(12)
+    margin-right: em(16)
+
+  &__heading
+    font-weight: 500
+    margin-bottom: em(6)
+
+  &__subheading
+    font-size: em(14)
+    margin: 0
+
+  &__button
+    box-sizing: border-box
+    display: flex
+    padding: em(4)
+
+  &__main
+    padding: em(16) em(50) em(24) em(44)
+
+  &__text
+    color: gray
+    font-size: em(14)
+    line-height: 1.4
+    margin: 0
+    margin-bottom: em(8)
+
+    &:last-child
+      margin-bottom: 0
