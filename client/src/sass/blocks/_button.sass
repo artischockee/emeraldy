@@ -22,6 +22,19 @@
   &:disabled
     background-color: $cl-gray
 
+  &_transparent
+    background-color: transparent
+    transition: none
+
+    &:focus
+      box-shadow: none
+
+    &:hover, &:disabled
+      background-color: transparent
+
+    &:disabled
+      cursor: not-allowed
+
   &_rounded
     border-radius: em(32)
 
