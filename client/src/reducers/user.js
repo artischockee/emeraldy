@@ -35,3 +35,4 @@ export const getName = (state) => ({
 });
 
 export const getLogin = (state) => state.user.login;
+export const isLoggedIn = (state) => state.user.isLoggedIn;
