@@ -29,7 +29,7 @@ class UserBlock extends React.Component {
           {userHasFullName &&
             <p>@{userLogin}</p>
           }
-          <ul className="clean-ul user-block__clean-ul">
+          <ul className="ul user-block__ul">
             <li className="list-item">View Profile</li>
             <li className="list-item">Settings</li>
             <li className="list-item">Log out</li>

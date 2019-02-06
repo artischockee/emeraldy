@@ -5,7 +5,7 @@ import { HappyFace } from '../svg';
 
 const SuccessComponent = ({ user }) => (
   <ComponentWrapper alignCenter>
-    <HappyFace className="login__svg svg" />
+    <HappyFace className="login__svg" />
     <p className="login__welcome-message">
       Welcome, {
         (user.firstName && user.lastName)
