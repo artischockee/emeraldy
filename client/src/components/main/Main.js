@@ -16,7 +16,7 @@ class Main extends React.Component {
   };
 
   async componentDidMount() {
-    await timeout(3000);
+    await timeout(1000);
 
     fetch(STOCK_CARDS_API)
       .then(response => response.json())
@@ -51,10 +51,10 @@ class Main extends React.Component {
           <h1 className="heading main__heading">Stock</h1>
           <div style={{ marginLeft: 'auto' }}>
             <Button
-              className="button main__button"
+              className="button button_rounded_small main__button"
               onClick={this.create}
             >
-              <Plus className="svg main__svg" />
+              <Plus className="main__svg" />
             </Button>
           </div>
         </section>
