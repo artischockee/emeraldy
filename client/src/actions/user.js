@@ -13,9 +13,13 @@ const acceptLogin = (data) => ({
   payload: data
 });
 
-export const submitLogout = () => ({
+const acceptLogout = () => ({
   type: User.LOGOUT_SUBMIT
 });
+
+export const submitLogout = () => (dispatch) => {
+  dispatch(acceptLogout());
+};
 
 export const submitLogin = (data) => (dispatch) => {
   const apiLogin = '/api/login';
@@ -38,6 +42,5 @@ export const submitLogin = (data) => (dispatch) => {
         return dispatch(stopSubmit(loginFormName, data));
       else
         return dispatch(acceptLogin(data));
-    })
-    // .then(smth => dispatch(acceptLogin(smth)))
+    });
 };
