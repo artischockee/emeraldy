@@ -1,9 +1,8 @@
 import '../sass/App.sass';
 import React from 'react';
 import ControlPanel from './control-panel';
-import Header from './header/Header';
-import Main from './main/Main';
-// import Footer from './Footer';
+import Header from './header';
+import Main from './main';
 import ModalDialogSystem from './ModalDialogSystem';
 
 const App = () => (
@@ -13,7 +12,6 @@ const App = () => (
     <div className="main-part" style={{ display: 'flex', flexDirection: 'column', flex: 'auto' }}>
       <Header />
       <Main />
-      {/* <Footer /> */}
     </div>
   </React.Fragment>
 );
