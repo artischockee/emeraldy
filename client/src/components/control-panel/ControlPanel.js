@@ -12,7 +12,7 @@ export default class ControlPanel extends React.Component {
         </div>
         <nav className="control-panel__nav">
           <ul className="ul">
-            <ListItem linkTo="/" iconComponent={Home} />
+            <ListItem linkTo="/" linkToMainPage iconComponent={Home} />
             <ListItem linkTo="/users" iconComponent={User} />
             <ListItem linkTo="/stock" iconComponent={Star} />
             <ListItem linkTo="/charts" iconComponent={BarGraph} />
@@ -24,10 +24,12 @@ export default class ControlPanel extends React.Component {
 }
 
 const ListItem = ({
-  linkTo, iconComponent: SVGIcon
+  iconComponent: SVGIcon,
+  linkTo,
+  linkToMainPage
 }) => (
   <li className="control-panel__li">
-    <Link className="control-panel__link" to={linkTo}>
+    <Link className="control-panel__link" to={linkTo} mainPage={linkToMainPage}>
       <SVGIcon className="control-panel__svg" />
     </Link>
   </li>
