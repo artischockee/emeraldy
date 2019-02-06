@@ -6,3 +6,40 @@
   border-right: em(1) solid $cl-gray
   height: 100vh
   width: em(64)
+
+  &__logo-container
+    align-items: center
+    display: flex
+    justify-content: center
+    padding: em(12)
+
+  &__logo
+    background-color: $cl-primary
+    fill: white
+    padding: em(4)
+    width: em(40)
+
+  &__nav
+    margin-top: em(48)
+
+  &__li
+    margin-bottom: em(12)
+
+    &:last-child
+      margin-bottom: 0
+
+  &__link
+    align-items: center
+    display: flex
+    justify-content: center
+    padding: em(14) 0
+
+    &_is-active
+      box-shadow: inset em(4) 0 $cl-primary
+
+  &__svg
+    fill: gray
+    width: em(20)
+
+  &__link_is-active &__svg
+    fill: $cl-primary
