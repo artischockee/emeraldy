@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { submitLogout } from '../../actions';
 import { getLogin, getName, hasFullName } from '../../reducers/user';
 import Dropdown from '../generic/dropdown/Dropdown';
 import { CaretDown } from '../svg';
@@ -7,6 +8,7 @@ import { CaretDown } from '../svg';
 class UserBlock extends React.Component {
   render() {
     const {
+      handleLogout,
       userHasFullName,
       userLogin,
       userName
@@ -32,7 +34,9 @@ class UserBlock extends React.Component {
           <ul className="ul user-block__ul">
             <li className="list-item">View Profile</li>
             <li className="list-item">Settings</li>
-            <li className="list-item">Log out</li>
+            <li className="list-item" onClick={handleLogout}>
+              Log out
+            </li>
           </ul>
         </Dropdown.Content>
       </Dropdown>
@@ -46,4 +50,8 @@ const mapStateToProps = (state) => ({
   userName: getName(state)
 });
 
-export default connect(mapStateToProps)(UserBlock);
+const actions = {
+  handleLogout: submitLogout
+};
+
+export default connect(mapStateToProps, actions)(UserBlock);
