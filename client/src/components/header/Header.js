@@ -1,14 +1,12 @@
 import './Header.sass';
 import React from 'react';
-import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import classNames from 'classnames';
 import { headerSearchFormName } from '../../auxiliary/redux-forms';
-import { submitLogout } from '../../actions';
 import { Bell, Lens } from '../svg';
 import UserBlock from './UserBlock';
 
-const Header = ({ isLoggedIn, handleLogout }) => (
+const Header = () => (
   <header className="header">
     <Field
       component={searchField}
@@ -47,14 +45,6 @@ const searchField = ({
   </div>
 );
 
-const mapStateToProps = (state, ownProps) => ({
-  isLoggedIn: state.user.isLoggedIn
-});
-
-const actions = {
-  handleLogout: submitLogout
-};
-
 export default reduxForm({
   form: headerSearchFormName
-})(connect(mapStateToProps, actions)(Header));
+})(Header);
