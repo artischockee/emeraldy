@@ -1,9 +1,11 @@
 import './Notification.sass';
 import React from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import classNames from 'classnames';
+import { unmountNotification } from '../../actions/notificationSystem';
 import { NotificationTypes } from '../../auxiliary/notification';
-import { timeout } from '../../auxiliary/timeout';
+import { timeout } from '../../auxiliary';
 import {
   ExclamationSign,
   CheckedSign,
@@ -16,36 +18,39 @@ const { EXCLAMATION, INFORMATION, QUESTION } = NotificationTypes;
 
 class Notification extends React.PureComponent {
   state = {
-      hidden: true,
-      willUnmountByTime: true
+    isHidden: true,
+    shouldUnmountByTime: true
   };
 
-  cancelAutoRemove = () => {
-    if (!this.state.willUnmountByTime)
+  static unmountDelay = 5000;
+  static fadeInDuration = 200;
+
+  cancelAutoUnmount = () => {
+    if (!this.state.shouldUnmountByTime)
       return;
 
-    this.setState({ willUnmountByTime: false });
+    this.setState({ shouldUnmountByTime: false });
 
     clearTimeout(this.autoUnmountTimeout);
   }
 
-  handleDelete = async () => {
-    this.setState({ hidden: true });
+  handleUnmount = async () => {
+    this.setState({ isHidden: true });
 
-    await timeout(200);
+    await timeout(Notification.fadeInDuration);
 
-    this.props.deleteNotification();
+    this.props.unmountNotification(this.props.id);
   }
 
   async componentDidMount() {
-    await timeout(200);
+    await timeout(Notification.fadeInDuration);
 
-    this.setState({ hidden: false });
+    this.setState({ isHidden: false });
 
     this.autoUnmountTimeout = setTimeout(() => {
-      if (this.state.willUnmountByTime)
-        this.handleDelete();
-    }, 5000);
+      if (this.state.shouldUnmountByTime)
+        this.handleUnmount();
+    }, Notification.unmountDelay);
   }
 
   componentWillUnmount() {
@@ -53,7 +58,7 @@ class Notification extends React.PureComponent {
   }
 
   render() {
-    const { hidden } = this.state;
+    const { isHidden } = this.state;
     const { type, title, subtitle, mainText } = this.props;
 
     let SVGIcon = null;
@@ -78,9 +83,9 @@ class Notification extends React.PureComponent {
       <div
         className={classNames(
           "notification",
-          { "notification_is-hidden": hidden }
+          { "notification_is-hidden": isHidden }
         )}
-        onMouseEnter={this.cancelAutoRemove}
+        onMouseEnter={this.cancelAutoUnmount}
       >
         <header
           className={classNames(
@@ -99,6 +104,7 @@ class Notification extends React.PureComponent {
           </div>
           <Button
             className="button button_transparent notification__button"
+            onClick={this.handleUnmount}
           >
             <RemoveSymbol
               className="notification__svg notification__svg_small"
@@ -119,9 +125,16 @@ class Notification extends React.PureComponent {
   }
 }
 
-// Notification.propTypes = {
-//     deleteNotification: PropTypes.func.isRequired,
-//     message: PropTypes.string.isRequired
-// };
+Notification.propTypes = {
+  id: PropTypes.string.isRequired,
+  mainText: PropTypes.arrayOf(PropTypes.string),
+  subtitle: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired
+};
 
-export default Notification;
+const actions = {
+  unmountNotification
+};
+
+export default connect(null, actions)(Notification);
