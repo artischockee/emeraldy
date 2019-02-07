@@ -17,6 +17,8 @@ const notifications = (state = initialState, action) => {
           ...action.payload
         }
       ];
+    case NotificationSystem.UNMOUNT_NOTIFICATION:
+      return state.filter(ntf => ntf.id !== action.id);
     default:
       return state;
   }
