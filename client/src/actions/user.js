@@ -1,5 +1,10 @@
 import { stopSubmit } from 'redux-form';
 import { loginFormName } from '../auxiliary/redux-forms';
+import {
+  NotificationTypes,
+  createNotification
+} from '../auxiliary/notification';
+import { mountNotification } from './notificationSystem';
 
 const ENTITY = 'User/';
 
@@ -19,6 +24,14 @@ const acceptLogout = () => ({
 
 export const submitLogout = () => (dispatch) => {
   dispatch(acceptLogout());
+
+  const data = createNotification(
+    NotificationTypes.INFORMATION,
+    'Sign out',
+    'You have successfully logged out'
+  );
+  
+  dispatch(mountNotification(data));
 };
 
 export const submitLogin = (data) => (dispatch) => {
