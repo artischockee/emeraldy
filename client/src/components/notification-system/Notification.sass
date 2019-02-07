@@ -7,10 +7,17 @@
   margin-bottom: em(12)
   max-width: em(384)
   overflow: hidden
+  transition-duration: 200ms
+  transition-property: opacity, visibility
+  transition-timing-function: ease-out
   width: em(384)
 
   &:last-child
     margin-bottom: 0
+
+  &_is-hidden
+    opacity: 0
+    visibility: hidden
 
   &__header
     align-items: flex-start
